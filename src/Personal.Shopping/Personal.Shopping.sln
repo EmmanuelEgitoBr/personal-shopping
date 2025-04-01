@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{FE74F7DA-02BD-4745-A298-83ACC3EC5033}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{F41DD400-28F3-4EF9-87B0-881CBE537859}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{E16733AA-3326-4E74-A8A5-960CD34A0825}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F5D97BF2-FACA-40C4-A4D9-A84207D7F22B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Coupon", "Coupon", "{00795A38-D0B2-4B9E-B910-C83CFB2B21BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Api", "Services\Coupon\Personal.Shopping.Services.Coupon.Api\Personal.Shopping.Services.Coupon.Api.csproj", "{0A9666C0-77A9-4A75-BE9C-F631F99DB905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Infra", "Services\Coupon\Personal.Shopping.Services.Coupon.Infra\Personal.Shopping.Services.Coupon.Infra.csproj", "{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Domain", "Services\Coupon\Personal.Shopping.Services.Coupon.Domain\Personal.Shopping.Services.Coupon.Domain.csproj", "{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A9666C0-77A9-4A75-BE9C-F631F99DB905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9666C0-77A9-4A75-BE9C-F631F99DB905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9666C0-77A9-4A75-BE9C-F631F99DB905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9666C0-77A9-4A75-BE9C-F631F99DB905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{00795A38-D0B2-4B9E-B910-C83CFB2B21BC} = {F5D97BF2-FACA-40C4-A4D9-A84207D7F22B}
+		{0A9666C0-77A9-4A75-BE9C-F631F99DB905} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
+		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
+		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,6 @@
+@Personal.Shopping.Services.Coupon.Api_HostAddress = http://localhost:5251
+
+GET {{Personal.Shopping.Services.Coupon.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
