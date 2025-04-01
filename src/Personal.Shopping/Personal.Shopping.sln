@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Domain", "Services\Coupon\Personal.Shopping.Services.Coupon.Domain\Personal.Shopping.Services.Coupon.Domain.csproj", "{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Application", "Services\Coupon\Personal.Shopping.Services.Coupon.Application\Personal.Shopping.Services.Coupon.Application.csproj", "{35050BC6-1C48-454A-A139-957F30D65BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35050BC6-1C48-454A-A139-957F30D65BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35050BC6-1C48-454A-A139-957F30D65BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35050BC6-1C48-454A-A139-957F30D65BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35050BC6-1C48-454A-A139-957F30D65BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 		{0A9666C0-77A9-4A75-BE9C-F631F99DB905} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
+		{35050BC6-1C48-454A-A139-957F30D65BCA} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 	EndGlobalSection
 EndGlobal
