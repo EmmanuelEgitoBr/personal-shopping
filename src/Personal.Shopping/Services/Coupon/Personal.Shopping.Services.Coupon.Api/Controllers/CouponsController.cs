@@ -23,7 +23,7 @@ public class CouponsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("/get-by-id/{id}")]
+    [HttpGet("get-by-id/{id}")]
     public async Task<ActionResult> GetCouponById(int id)
     {
         var result = await _couponService.GetCuponByIdAsync(id);
@@ -31,7 +31,7 @@ public class CouponsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("/get-by-code/{code}")]
+    [HttpGet("get-by-code/{code}")]
     public async Task<ActionResult> GetCouponByCode(string code)
     {
         var result = await _couponService.GetCuponByCodeAsync(code.ToUpper());
@@ -55,7 +55,7 @@ public class CouponsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("/delete/{id}")]
+    [HttpDelete("delete/{id}")]
     public async Task<ActionResult> DeleteCoupon(int id)
     {
         await _couponService.DeleteCouponAsync(id);

@@ -1,0 +1,63 @@
+﻿@model CouponDto
+
+<form asp-action="CouponCreate" >
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-white text-center">Criar novo cupom de desconto</h1>
+        <hr />
+        <div class="row">
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Código do cupom</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CouponCode" class="form-control" />
+                <span asp-validation-for="CouponCode" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Valor do desconto</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="DiscountAmount" class="form-control" />
+                <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:15px;">Valor mín de aplicação</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="MinAmount" class="form-control" />
+                <span asp-validation-for="MinAmount" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Início da vigência</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input type="datetime-local" asp-for="StartsIn" class="form-control" />
+                <span asp-validation-for="StartsIn" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Validade</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input type="datetime-local" asp-for="ExpiresIn" class="form-control" />
+                <span asp-validation-for="ExpiresIn" class="text-danger"></span>
+            </div>
+
+            <div class="col-5 offset-2">
+
+                <a asp-action="CouponIndex" class="btn-primary btn form-control ">Voltar</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Criar" class="btn btn-success form-control" />
+
+            </div>
+
+        </div>
+
+        <div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

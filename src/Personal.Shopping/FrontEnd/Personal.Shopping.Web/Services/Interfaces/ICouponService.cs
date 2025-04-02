@@ -5,7 +5,7 @@ namespace Personal.Shopping.Web.Services.Interfaces;
 public interface ICouponService
 {
     Task<ResponseDto> CreateCouponAsync(CouponDto coupon);
-    Task DeleteCouponAsync(int id);
+    Task<ResponseDto> DeleteCouponAsync(int id);
     Task<ResponseDto> GetAllCuponsAsync();
     Task<ResponseDto> GetCuponByCodeAsync(string couponCode);
     Task<ResponseDto> GetCuponByIdAsync(int couponId);

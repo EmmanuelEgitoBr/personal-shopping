@@ -78,6 +78,9 @@ public class CouponService : ICouponService
 
     public async Task<ResponseDto> CreateCouponAsync(CouponDto coupon)
     {
+        coupon.CouponCode = coupon.CouponCode.ToUpper();
+        coupon.CreatedAt = DateTime.Now;
+
         var result = await _couponRepository.CreateCoupon(_mapper.Map<Domain.Entities.Coupon>(coupon));
 
         if (result is null)

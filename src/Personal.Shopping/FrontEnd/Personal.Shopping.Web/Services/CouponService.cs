@@ -2,21 +2,17 @@
 using Personal.Shopping.Web.Models.Enums;
 using Personal.Shopping.Web.Services.Interfaces;
 using Personal.Shopping.Web.Services.Interfaces.Base;
+using Personal.Shopping.Web.Settings;
 
 namespace Personal.Shopping.Web.Services;
 
 public class CouponService : ICouponService
 {
     private readonly IBaseService _baseService;
-    private readonly IConfiguration _configuration;
-    private readonly string _baseUrl;
 
-    public CouponService(IBaseService baseService,
-        IConfiguration configuration)
+    public CouponService(IBaseService baseService)
     {
         _baseService = baseService;
-        _configuration = configuration;
-        _baseUrl = _configuration.GetValue<string>("ServicesUrls:CouponApi")!;
     }
 
     public async Task<ResponseDto> CreateCouponAsync(CouponDto coupon)
@@ -25,17 +21,17 @@ public class CouponService : ICouponService
         {
             ApiType = ApiType.POST,
             Content = coupon,
-            Url = _baseUrl + $"/api/coupon"
+            Url = AppSettings.CouponBaseUrl + $"/api/coupon"
         };
         return await _baseService.SendAsync(request!)!;
     }
 
-    public async Task DeleteCouponAsync(int id)
+    public async Task<ResponseDto> DeleteCouponAsync(int id)
     {
-        await _baseService.SendAsync(new RequestDto()
+        return await _baseService.SendAsync(new RequestDto()
         {
             ApiType = ApiType.DELETE,
-            Url = _baseUrl + $"/api/coupon/delete/{id}"
+            Url = AppSettings.CouponBaseUrl + $"/api/coupon/delete/{id}"
         });
     }
 
@@ -44,7 +40,7 @@ public class CouponService : ICouponService
         return await _baseService.SendAsync(new RequestDto()
         {
             ApiType = ApiType.GET,
-            Url = _baseUrl + "/api/coupon"
+            Url = AppSettings.CouponBaseUrl + "/api/coupon"
         });
     }
 
@@ -53,7 +49,7 @@ public class CouponService : ICouponService
         return await _baseService.SendAsync(new RequestDto()
         {
             ApiType = ApiType.GET,
-            Url = _baseUrl + $"/api/coupon/get-by-code/{couponCode}"
+            Url = AppSettings.CouponBaseUrl + $"/api/coupon/get-by-code/{couponCode}"
         });
     }
 
@@ -62,7 +58,7 @@ public class CouponService : ICouponService
         return await _baseService.SendAsync(new RequestDto()
         {
             ApiType = ApiType.GET,
-            Url = _baseUrl + $"/api/coupon/get-by-id/{couponId}"
+            Url = AppSettings.CouponBaseUrl + $"/api/coupon/get-by-id/{couponId}"
         });
     }
 
@@ -72,7 +68,7 @@ public class CouponService : ICouponService
         {
             ApiType = ApiType.PUT,
             Content = coupon,
-            Url = _baseUrl + $"/api/coupon"
+            Url = AppSettings.CouponBaseUrl + $"/api/coupon"
         };
         return await _baseService.SendAsync(request!)!;
     }
