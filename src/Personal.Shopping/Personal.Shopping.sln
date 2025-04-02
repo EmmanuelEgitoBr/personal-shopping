@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Web", "FrontEnd\Personal.Shopping.Web\Personal.Shopping.Web.csproj", "{287FBDAE-8EEA-4E42-86AC-55C9E6142777}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{FAAB399E-39EE-4E3B-85C6-396AA833820E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Auth.Api", "Services\Auth\Personal.Shopping.Services.Auth.Api\Personal.Shopping.Services.Auth.Api.csproj", "{D127C54C-807A-4E5D-8797-55B27E173224}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D127C54C-807A-4E5D-8797-55B27E173224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D127C54C-807A-4E5D-8797-55B27E173224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D127C54C-807A-4E5D-8797-55B27E173224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D127C54C-807A-4E5D-8797-55B27E173224}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +68,7 @@ Global
 		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 		{35050BC6-1C48-454A-A139-957F30D65BCA} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 		{287FBDAE-8EEA-4E42-86AC-55C9E6142777} = {FE74F7DA-02BD-4745-A298-83ACC3EC5033}
+		{FAAB399E-39EE-4E3B-85C6-396AA833820E} = {F5D97BF2-FACA-40C4-A4D9-A84207D7F22B}
+		{D127C54C-807A-4E5D-8797-55B27E173224} = {FAAB399E-39EE-4E3B-85C6-396AA833820E}
 	EndGlobalSection
 EndGlobal
