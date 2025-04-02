@@ -4,7 +4,7 @@ using Personal.Shopping.Services.Coupon.Application.Interfaces;
 
 namespace Personal.Shopping.Services.Coupon.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/coupon")]
 [ApiController]
 public class CouponsController : ControllerBase
 {
@@ -23,7 +23,7 @@ public class CouponsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("id")]
+    [HttpGet("/get-by-id/{id}")]
     public async Task<ActionResult> GetCouponById(int id)
     {
         var result = await _couponService.GetCuponByIdAsync(id);
@@ -31,7 +31,7 @@ public class CouponsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("code")]
+    [HttpGet("/get-by-code/{code}")]
     public async Task<ActionResult> GetCouponByCode(string code)
     {
         var result = await _couponService.GetCuponByCodeAsync(code.ToUpper());
@@ -55,7 +55,7 @@ public class CouponsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("/delete/{id}")]
     public async Task<ActionResult> DeleteCoupon(int id)
     {
         await _couponService.DeleteCouponAsync(id);

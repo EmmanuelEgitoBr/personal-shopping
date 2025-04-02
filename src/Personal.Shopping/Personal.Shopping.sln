@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{FE74F7DA-02BD-4745-A298-83ACC3EC5033}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Domain", "Services\Coupon\Personal.Shopping.Services.Coupon.Domain\Personal.Shopping.Services.Coupon.Domain.csproj", "{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Coupon.Application", "Services\Coupon\Personal.Shopping.Services.Coupon.Application\Personal.Shopping.Services.Coupon.Application.csproj", "{35050BC6-1C48-454A-A139-957F30D65BCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Web", "FrontEnd\Personal.Shopping.Web\Personal.Shopping.Web.csproj", "{287FBDAE-8EEA-4E42-86AC-55C9E6142777}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{35050BC6-1C48-454A-A139-957F30D65BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35050BC6-1C48-454A-A139-957F30D65BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35050BC6-1C48-454A-A139-957F30D65BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{287FBDAE-8EEA-4E42-86AC-55C9E6142777}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +59,6 @@ Global
 		{4CD8BE4F-6422-4DA0-9202-C9AB97996EBD} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 		{3D107782-8E8C-4CB6-BB6F-91DBE3CC6373} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
 		{35050BC6-1C48-454A-A139-957F30D65BCA} = {00795A38-D0B2-4B9E-B910-C83CFB2B21BC}
+		{287FBDAE-8EEA-4E42-86AC-55C9E6142777} = {FE74F7DA-02BD-4745-A298-83ACC3EC5033}
 	EndGlobalSection
 EndGlobal

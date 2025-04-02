@@ -1,4 +1,4 @@
-﻿namespace Personal.Shopping.Services.Coupon.Application.Dtos;
+﻿namespace Personal.Shopping.Web.Models;
 
 public class ResponseDto
 {
