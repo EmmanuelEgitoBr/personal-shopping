@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Personal.Shopping.Services.Auth.Api.Models;
+using Personal.Shopping.Services.Auth.Api.Services;
+using Personal.Shopping.Services.Auth.Api.Services.Interfaces;
 using Personal.Shopping.Services.Auth.Infra.Context;
 using Personal.Shopping.Services.Auth.Infra.Models;
 
@@ -25,6 +27,8 @@ namespace Personal.Shopping.Services.Auth.Api
         public static void AddAuthConfiguration(this WebApplicationBuilder builder)
         {
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

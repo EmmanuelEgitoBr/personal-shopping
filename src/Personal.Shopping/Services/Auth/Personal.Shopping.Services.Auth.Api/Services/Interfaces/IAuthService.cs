@@ -4,6 +4,7 @@ namespace Personal.Shopping.Services.Auth.Api.Services.Interfaces;
 
 public interface IAuthService
 {
-    Task<UserDto> RegisterAsync(RegistrationRequestDto registrationRequestDto);
-    Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto);
+    Task<ResponseDto> RegisterAsync(RegistrationRequestDto registrationRequestDto);
+    Task<ResponseDto> LoginAsync(LoginRequestDto loginRequestDto);
+    Task<ResponseDto> AssignRoleToUser(string email, string roleName);
 }
