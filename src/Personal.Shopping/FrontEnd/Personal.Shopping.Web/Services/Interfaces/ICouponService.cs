@@ -1,4 +1,5 @@
 ﻿using Personal.Shopping.Web.Models;
+using Personal.Shopping.Web.Models.Coupon;
 
 namespace Personal.Shopping.Web.Services.Interfaces;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Personal.Shopping.Web.Models;
+using Personal.Shopping.Web.Models.Coupon;
 using Personal.Shopping.Web.Services.Interfaces;
 
 namespace Personal.Shopping.Web.Controllers

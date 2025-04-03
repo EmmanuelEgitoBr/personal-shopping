@@ -1,4 +1,4 @@
-﻿namespace Personal.Shopping.Web.Models;
+﻿namespace Personal.Shopping.Web.Models.Coupon;
 
 public class CouponDto
 {

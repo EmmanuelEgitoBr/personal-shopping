@@ -1,9 +1,9 @@
-﻿namespace Personal.Shopping.Services.Auth.Application.Dtos;
+﻿namespace Personal.Shopping.Web.Models.Auth;
 
-public class UserDto
+public class RegistrationRequestDto
 {
-    public string? Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

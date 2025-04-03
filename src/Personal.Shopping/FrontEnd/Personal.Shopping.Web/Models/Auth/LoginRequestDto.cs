@@ -1,4 +1,4 @@
-﻿namespace Personal.Shopping.Services.Auth.Application.Dtos;
+﻿namespace Personal.Shopping.Web.Models.Auth;
 
 public class LoginRequestDto
 {

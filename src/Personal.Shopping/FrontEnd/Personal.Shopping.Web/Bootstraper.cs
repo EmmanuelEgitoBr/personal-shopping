@@ -14,6 +14,7 @@ public static class Bootstraper
 
         builder.Services.AddScoped<IBaseService, BaseService>();
         builder.Services.AddScoped<ICouponService, CouponService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
     }
 
     public static void AddHttpConfiguration(this WebApplicationBuilder builder)
