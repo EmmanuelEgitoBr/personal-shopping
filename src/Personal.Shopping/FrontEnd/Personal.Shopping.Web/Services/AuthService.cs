@@ -22,9 +22,9 @@ public class AuthService : IAuthService
         {
             ApiType = ApiType.POST,
             Content = assignRoleRequestDto,
-            Url = AppSettings.CouponBaseUrl + $"/api/auth/assign-role/{assignRoleRequestDto.Email}/{assignRoleRequestDto.RoleName}"
+            Url = AppSettings.AuthBaseUrl + $"/api/auth/assign-role/{assignRoleRequestDto.Email}/{assignRoleRequestDto.RoleName}"
         };
-        return await _baseService.SendAsync(request!)!;
+        return await _baseService.SendAsync(request)!;
     }
 
     public async Task<ResponseDto> LoginAsync(LoginRequestDto loginRequestDto)
@@ -33,9 +33,9 @@ public class AuthService : IAuthService
         {
             ApiType = ApiType.POST,
             Content = loginRequestDto,
-            Url = AppSettings.CouponBaseUrl + $"/api/auth/login"
+            Url = AppSettings.AuthBaseUrl + $"/api/auth/login"
         };
-        return await _baseService.SendAsync(request!)!;
+        return await _baseService.SendAsync(request)!;
     }
 
     public async Task<ResponseDto> RegisterAsync(RegistrationRequestDto registerRequestDto)
@@ -44,8 +44,8 @@ public class AuthService : IAuthService
         {
             ApiType = ApiType.POST,
             Content = registerRequestDto,
-            Url = AppSettings.CouponBaseUrl + $"/api/auth/register"
+            Url = AppSettings.AuthBaseUrl + $"/api/auth/register"
         };
-        return await _baseService.SendAsync(request!)!;
+        return await _baseService.SendAsync(request)!;
     }
 }

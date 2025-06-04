@@ -2,5 +2,6 @@
 
 public class AppSettings
 {
-    public static string? CouponBaseUrl {  get; set; }
+    public static string AuthBaseUrl { get; set; } = string.Empty;
+    public static string CouponBaseUrl { get; set; } = string.Empty;
 }

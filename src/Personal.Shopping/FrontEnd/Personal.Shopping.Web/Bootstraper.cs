@@ -10,6 +10,7 @@ public static class Bootstraper
 {
     public static void AddAppServices(this WebApplicationBuilder builder)
     {
+        AppSettings.AuthBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:AuthService")!;
         AppSettings.CouponBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:CouponApi")!;
 
         builder.Services.AddScoped<IBaseService, BaseService>();
