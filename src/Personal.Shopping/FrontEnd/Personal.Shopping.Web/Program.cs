@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.AddAppServices();
 builder.AddHttpConfiguration();
+builder.AddAuthConfiguration();
 
 var app = builder.Build();
 

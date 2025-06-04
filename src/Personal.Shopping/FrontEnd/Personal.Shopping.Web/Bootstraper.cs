@@ -1,4 +1,5 @@
-﻿using Personal.Shopping.Web.Services;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Personal.Shopping.Web.Services;
 using Personal.Shopping.Web.Services.Base;
 using Personal.Shopping.Web.Services.Interfaces;
 using Personal.Shopping.Web.Services.Interfaces.Base;
@@ -14,6 +15,7 @@ public static class Bootstraper
         AppSettings.CouponBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:CouponApi")!;
 
         builder.Services.AddScoped<IBaseService, BaseService>();
+        builder.Services.AddScoped<ITokenProvider, TokenProvider>();
         builder.Services.AddScoped<ICouponService, CouponService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
     }
@@ -24,6 +26,17 @@ public static class Bootstraper
         builder.Services.AddHttpClient();
         //builder.Services.AddHttpClient<IBaseService, BaseService>();
         //builder.Services.AddHttpClient<ICouponService, CouponService>();
+    }
+
+    public static void AddAuthConfiguration(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromHours(10);
+                options.LoginPath = "/Auth/Login";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
+            });
     }
 
 }
