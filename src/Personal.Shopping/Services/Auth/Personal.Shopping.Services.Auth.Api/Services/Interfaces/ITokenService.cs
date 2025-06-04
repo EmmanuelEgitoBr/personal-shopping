@@ -4,5 +4,5 @@ namespace Personal.Shopping.Services.Auth.Api.Services.Interfaces;
 
 public interface ITokenService
 {
-    public string GenerateToken(ApplicationUser user);
+    public string GenerateToken(ApplicationUser user, IEnumerable<string> roles);
 }

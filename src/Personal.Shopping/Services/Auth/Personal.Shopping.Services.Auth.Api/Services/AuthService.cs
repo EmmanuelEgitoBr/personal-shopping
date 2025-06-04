@@ -64,7 +64,8 @@ public class AuthService : IAuthService
             };
         }
 
-        var token = _tokenService.GenerateToken(user!);
+        var roles = await _userManager.GetRolesAsync(user!);
+        var token = _tokenService.GenerateToken(user!, roles);
 
         if (token.IsNullOrEmpty())
         {
