@@ -31,13 +31,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{F74388E4-D9D5-466B-97FB-FB4C1807CD1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Api", "Personal.Shopping.Services.Product.Api\Personal.Shopping.Services.Product.Api.csproj", "{C1A43993-375E-4364-9F7F-0C85120E44AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Api", "Services\Product\Personal.Shopping.Services.Product.Api\Personal.Shopping.Services.Product.Api.csproj", "{C1A43993-375E-4364-9F7F-0C85120E44AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Domain", "Personal.Shopping.Services.Product.Domain\Personal.Shopping.Services.Product.Domain.csproj", "{FE44CB6C-91E3-432E-BCB6-B1F42473BDE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Domain", "Services\Product\Personal.Shopping.Services.Product.Domain\Personal.Shopping.Services.Product.Domain.csproj", "{FE44CB6C-91E3-432E-BCB6-B1F42473BDE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Infra", "Personal.Shopping.Services.Product.Infra\Personal.Shopping.Services.Product.Infra.csproj", "{7E6CC788-BCB0-45C7-A26B-61CF0994FA2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Infra", "Services\Product\Personal.Shopping.Services.Product.Infra\Personal.Shopping.Services.Product.Infra.csproj", "{7E6CC788-BCB0-45C7-A26B-61CF0994FA2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Application", "Personal.Shopping.Services.Product.Application\Personal.Shopping.Services.Product.Application.csproj", "{48DEC75B-7908-4175-804A-2534557C1D04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Product.Application", "Services\Product\Personal.Shopping.Services.Product.Application\Personal.Shopping.Services.Product.Application.csproj", "{48DEC75B-7908-4175-804A-2534557C1D04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
