@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Personal.Shopping.Services.Coupon.Application.Dtos;
 using Personal.Shopping.Services.Coupon.Application.Interfaces;
 
@@ -15,6 +16,7 @@ public class CouponsController : ControllerBase
         _couponService = couponService;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult> GetAllCoupons()
     {
