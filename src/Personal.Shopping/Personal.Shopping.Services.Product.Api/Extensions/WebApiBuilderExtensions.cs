@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Personal.Shopping.Services.Coupon.Application.Interfaces;
-using Personal.Shopping.Services.Coupon.Application.Mappings;
-using Personal.Shopping.Services.Coupon.Application.Services;
-using Personal.Shopping.Services.Coupon.Domain.Interfaces;
-using Personal.Shopping.Services.Coupon.Infra.Context;
-using Personal.Shopping.Services.Coupon.Infra.Repositories;
+using Personal.Shopping.Services.Product.Application.Interfaces;
+using Personal.Shopping.Services.Product.Application.Mappings;
+using Personal.Shopping.Services.Product.Application.Services;
+using Personal.Shopping.Services.Product.Domain.Interfaces;
+using Personal.Shopping.Services.Product.Infra.Context;
+using Personal.Shopping.Services.Product.Infra.Repositories;
 using System.Text;
 
-namespace Personal.Shopping.Services.Coupon.Api.Extensions;
+namespace Personal.Shopping.Services.Product.Api.Extensions;
 
 public static class WebApiBuilderExtensions
 {
@@ -25,8 +25,8 @@ public static class WebApiBuilderExtensions
 
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<ICouponService, CouponService>();
-        builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+        builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)

@@ -1,4 +1,4 @@
-using Personal.Shopping.Services.Coupon.Api.Extensions;
+using Personal.Shopping.Services.Product.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,8 @@ builder.AddMapperConfiguration();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.AddSwaggerConfiguration();
 builder.AddSecurityConfiguration();
 
