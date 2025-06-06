@@ -31,7 +31,7 @@ namespace Personal.Shopping.Services.Product.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("get-by-code/{name}")]
+        [HttpGet("get-by-name/{name}")]
         public async Task<ActionResult> GetProductByName(string name)
         {
             var result = await _productService.GetProductByNameAsync(name.ToUpper());

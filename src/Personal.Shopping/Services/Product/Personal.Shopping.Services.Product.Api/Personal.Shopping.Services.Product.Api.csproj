@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Personal.Shopping.Services.Product.Infra\Personal.Shopping.Services.Product.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\Images\" />
+  </ItemGroup>
+
 </Project>
