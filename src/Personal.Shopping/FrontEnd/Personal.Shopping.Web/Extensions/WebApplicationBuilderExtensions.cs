@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Personal.Shopping.Web.Services;
 using Personal.Shopping.Web.Services.Base;
-using Personal.Shopping.Web.Services.Interfaces;
 using Personal.Shopping.Web.Services.Interfaces.Base;
+using Personal.Shopping.Web.Services.Interfaces;
+using Personal.Shopping.Web.Services;
 using Personal.Shopping.Web.Settings;
 
-namespace Personal.Shopping.Web;
+namespace Personal.Shopping.Web.Extensions;
 
-public static class Bootstraper
+public static class WebApplicationBuilderExtensions
 {
     public static void AddAppServices(this WebApplicationBuilder builder)
     {
@@ -38,5 +38,4 @@ public static class Bootstraper
                 options.AccessDeniedPath = "/Auth/AccessDenied";
             });
     }
-
 }

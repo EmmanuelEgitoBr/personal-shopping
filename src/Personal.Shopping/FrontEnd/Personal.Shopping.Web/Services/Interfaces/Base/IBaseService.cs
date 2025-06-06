@@ -4,5 +4,5 @@ namespace Personal.Shopping.Web.Services.Interfaces.Base;
 
 public interface IBaseService
 {
-    Task<ResponseDto?> SendAsync(RequestDto requestDto);
+    Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true);
 }

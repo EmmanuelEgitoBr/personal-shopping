@@ -1,4 +1,4 @@
-using Personal.Shopping.Web;
+using Personal.Shopping.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

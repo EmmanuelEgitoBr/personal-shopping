@@ -1,4 +1,5 @@
 using Personal.Shopping.Services.Coupon.Api;
+using Personal.Shopping.Services.Coupon.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

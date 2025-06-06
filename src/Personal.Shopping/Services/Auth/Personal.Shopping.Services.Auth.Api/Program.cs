@@ -1,4 +1,4 @@
-using Personal.Shopping.Services.Auth.Api;
+using Personal.Shopping.Services.Auth.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

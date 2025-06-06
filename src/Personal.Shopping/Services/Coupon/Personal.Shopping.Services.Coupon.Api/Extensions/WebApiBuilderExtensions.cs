@@ -3,9 +3,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace Personal.Shopping.Services.Coupon.Api;
+namespace Personal.Shopping.Services.Coupon.Api.Extensions;
 
-public static class IoCConfig
+public static class WebApiBuilderExtensions
 {
     public static void AddSecurityConfiguration(this WebApplicationBuilder builder)
     {
@@ -49,7 +49,7 @@ public static class IoCConfig
             option.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
-                    new OpenApiSecurityScheme 
+                    new OpenApiSecurityScheme
                     {
                         Reference = new OpenApiReference
                         {

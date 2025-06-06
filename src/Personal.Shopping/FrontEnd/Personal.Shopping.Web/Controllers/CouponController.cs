@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Personal.Shopping.Web.Models;
 using Personal.Shopping.Web.Models.Coupon;
@@ -15,6 +16,7 @@ namespace Personal.Shopping.Web.Controllers
             _couponService = couponService;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CouponIndex()
         {
             List<CouponDto> list = new();
