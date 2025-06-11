@@ -7,6 +7,7 @@ using Personal.Shopping.Web.Services.Interfaces;
 
 namespace Personal.Shopping.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CouponController : Controller
     {
         private readonly ICouponService _couponService;
@@ -16,7 +17,6 @@ namespace Personal.Shopping.Web.Controllers
             _couponService = couponService;
         }
 
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CouponIndex()
         {
             List<CouponDto> list = new();

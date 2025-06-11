@@ -15,7 +15,7 @@ namespace Personal.Shopping.Web.Controllers
             _productService = productService;
         }
 
-        public async Task<IActionResult> ProductIndex()
+        public async Task<IActionResult> Index()
         {
             List<ProductDto> list = new();
 
