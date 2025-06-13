@@ -19,6 +19,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<ITokenProvider, TokenProvider>();
         builder.Services.AddScoped<ICouponService, CouponService>();
         builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
     }
 
