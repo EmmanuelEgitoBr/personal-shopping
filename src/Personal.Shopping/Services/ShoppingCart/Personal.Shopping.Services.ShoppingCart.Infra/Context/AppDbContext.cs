@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Personal.Shopping.Services.ShoppingCart.Domain.Entities;
 
 namespace Personal.Shopping.Services.ShoppingCart.Infra.Context;
 
@@ -8,6 +9,6 @@ public class AppDbContext : DbContext
     {
     }
 
-    //public DbSet<Category> Categories { get; set; }
-    //public DbSet<Entity.Product> Products { get; set; }
+    public DbSet<CartDetail> CartDetails { get; set; }
+    public DbSet<CartHeader> CartHeaders { get; set; }
 }
