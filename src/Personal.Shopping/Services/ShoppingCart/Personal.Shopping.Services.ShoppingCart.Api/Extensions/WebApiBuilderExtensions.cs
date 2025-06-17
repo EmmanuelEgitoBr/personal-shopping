@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Personal.Shopping.Services.ShoppingCart.Application.Mappings;
+using Personal.Shopping.Services.ShoppingCart.Domain.Contracts;
 using Personal.Shopping.Services.ShoppingCart.Infra.Context;
+using Personal.Shopping.Services.ShoppingCart.Infra.Repositories;
 using System.Text;
 
 namespace Personal.Shopping.Services.ShoppingCart.Api.Extensions;
@@ -21,10 +23,10 @@ public static class WebApiBuilderExtensions
 
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
     {
-        //builder.Services.AddScoped<IProductService, ProductService>();
-        //builder.Services.AddScoped<IProductRepository, ProductRepository>();
-        //builder.Services.AddScoped<ICategoryService, CategoryService>();
-        //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        //builder.Services.AddScoped<ICartDetailService, CartDetailService>();
+        builder.Services.AddScoped<ICartDetailRepository, CartDetailRepository>();
+        //builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
+        builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)
