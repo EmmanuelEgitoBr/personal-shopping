@@ -36,14 +36,15 @@ namespace Personal.Shopping.Web.Controllers
 
         public async Task<IActionResult> Details(int productId)
         {
-            var product = new ProductViewModel();
+            var productModel = new ProductViewModel();
             ResponseDto? response = await _productService.GetProductByIdAsync(productId);
 
             if (response is not null && response.IsSuccess)
             {
-                product = JsonConvert.DeserializeObject<ProductViewModel>(Convert.ToString(response.Result!)!)!;
+                var product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result!)!)!;
+                productModel = ConvertToProductViewModel(product);
             }
-            return View(product);
+            return View(productModel);
         }
 
         public IActionResult ProductCreate()
