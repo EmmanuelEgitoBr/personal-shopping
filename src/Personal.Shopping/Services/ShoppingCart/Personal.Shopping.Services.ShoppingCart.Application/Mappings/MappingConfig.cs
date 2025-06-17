@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Personal.Shopping.Services.ShoppingCart.Application.Dtos;
+using Personal.Shopping.Services.ShoppingCart.Domain.Entities;
 
 namespace Personal.Shopping.Services.ShoppingCart.Application.Mappings;
 
@@ -8,8 +10,9 @@ public class MappingConfig
     {
         var mapperConfiguration = new MapperConfiguration(config =>
         {
-            //config.CreateMap<Entity.Product, ProductDto>().ReverseMap();
-            //config.CreateMap<Category, CategoryDto>().ReverseMap();
+            config.CreateMap<Product, ProductDto>().ReverseMap();
+            config.CreateMap<CartDetail, CartDetailDto>().ReverseMap();
+            config.CreateMap<CartHeader, CartHeaderDto>().ReverseMap();
         }
         );
         return mapperConfiguration;
