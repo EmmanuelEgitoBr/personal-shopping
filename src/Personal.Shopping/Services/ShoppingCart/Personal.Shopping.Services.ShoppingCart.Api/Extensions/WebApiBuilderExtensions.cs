@@ -9,6 +9,7 @@ using Personal.Shopping.Services.ShoppingCart.Application.Services;
 using Personal.Shopping.Services.ShoppingCart.Domain.Contracts;
 using Personal.Shopping.Services.ShoppingCart.Infra.Context;
 using Personal.Shopping.Services.ShoppingCart.Infra.Repositories;
+using Refit;
 using System.Text;
 
 namespace Personal.Shopping.Services.ShoppingCart.Api.Extensions;
@@ -29,6 +30,7 @@ public static class WebApiBuilderExtensions
         builder.Services.AddScoped<ICartDetailRepository, CartDetailRepository>();
         builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
         builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
+        //builder.Services.AddScoped<IProductService>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)
@@ -36,6 +38,17 @@ public static class WebApiBuilderExtensions
         IMapper mapper = MappingConfig.RegisterMap().CreateMapper();
         builder.Services.AddSingleton(mapper);
         builder.Services.AddAutoMapper(typeof(MappingConfig));
+    }
+
+    public static void AddRefitConfiguration(this WebApplicationBuilder builder)
+    {
+        var baseProductAddress = builder.Configuration.GetValue<string>("ServicesUrls:ProductApi");
+
+        builder.Services.AddRefitClient<IProductService>()
+            .ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri(baseProductAddress!);
+            });
     }
 
     public static void AddSecurityConfiguration(this WebApplicationBuilder builder)

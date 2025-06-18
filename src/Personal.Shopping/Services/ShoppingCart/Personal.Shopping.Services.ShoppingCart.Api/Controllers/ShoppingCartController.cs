@@ -12,14 +12,17 @@ public class ShoppingCartController : ControllerBase
 {
     private readonly ICartHeaderService _cartHeaderService;
     private readonly ICartDetailService _cartDetailService;
+    private readonly IProductService _productService;
     private ResponseDto _response;
 
     public ShoppingCartController(ICartHeaderService cartHeaderService,
-        ICartDetailService cartDetailService)
+        ICartDetailService cartDetailService,
+        IProductService productService)
     {
         _response = new ResponseDto();
         _cartHeaderService = cartHeaderService;
         _cartDetailService = cartDetailService;
+        _productService = productService;
     }
 
     [HttpGet("get-cart/{userId}")]
@@ -36,8 +39,11 @@ public class ShoppingCartController : ControllerBase
                 CartDetails = cartDetails
             };
 
+            IEnumerable<ProductDto> products = _productService.GetAllProducs().Result;
+
             foreach (var item in cartDto.CartDetails)
             {
+                item.Product = products.FirstOrDefault(p => p.ProductId == item.ProductId)!;
                 cartDto.CartHeader.CartTotal += (item.Count * Convert.ToDouble(item.Product.Price));
             }
 
