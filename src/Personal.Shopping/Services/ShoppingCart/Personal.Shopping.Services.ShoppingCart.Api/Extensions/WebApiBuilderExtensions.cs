@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Personal.Shopping.Services.ShoppingCart.Application.Interfaces;
 using Personal.Shopping.Services.ShoppingCart.Application.Mappings;
+using Personal.Shopping.Services.ShoppingCart.Application.Services;
 using Personal.Shopping.Services.ShoppingCart.Domain.Contracts;
 using Personal.Shopping.Services.ShoppingCart.Infra.Context;
 using Personal.Shopping.Services.ShoppingCart.Infra.Repositories;
@@ -23,9 +25,9 @@ public static class WebApiBuilderExtensions
 
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
     {
-        //builder.Services.AddScoped<ICartDetailService, CartDetailService>();
+        builder.Services.AddScoped<ICartDetailService, CartDetailService>();
         builder.Services.AddScoped<ICartDetailRepository, CartDetailRepository>();
-        //builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
+        builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
         builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
     }
 
