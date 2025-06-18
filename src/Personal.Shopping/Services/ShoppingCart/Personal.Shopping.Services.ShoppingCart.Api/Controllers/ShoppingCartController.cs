@@ -131,4 +131,46 @@ public class ShoppingCartController : ControllerBase
         return _response;
     }
 
+    [HttpPost("apply-coupon")]
+    public async Task<ResponseDto> ApplyCoupon([FromBody]CartDto cartDto)
+    {
+        try
+        {            
+            var cartHeaderFromDb = _cartHeaderService.GetCartHeaderByUserIdAsync(cartDto.CartHeader.UserId!).Result;
+            cartHeaderFromDb.CouponCode = cartDto.CartHeader.CouponCode;
+            await _cartHeaderService.UpdateCartHeaderAsync(cartHeaderFromDb)!;
+            
+            
+            _response.Result = cartHeaderFromDb;
+            _response.IsSuccess = true;
+        }
+        catch (Exception ex)
+        {
+            _response.Message = ex.Message.ToString();
+            _response.IsSuccess = false;
+        }
+        return _response;
+    }
+
+    [HttpPost("remove-coupon")]
+    public async Task<ResponseDto> RemoveCoupon([FromBody] CartDto cartDto)
+    {
+        try
+        {
+            var cartHeaderFromDb = _cartHeaderService.GetCartHeaderByUserIdAsync(cartDto.CartHeader.UserId!).Result;
+            cartHeaderFromDb.CouponCode = "";
+            await _cartHeaderService.UpdateCartHeaderAsync(cartHeaderFromDb)!;
+
+
+            _response.Result = cartHeaderFromDb;
+            _response.IsSuccess = true;
+        }
+        catch (Exception ex)
+        {
+            _response.Message = ex.Message.ToString();
+            _response.IsSuccess = false;
+        }
+        return _response;
+    }
+
 }

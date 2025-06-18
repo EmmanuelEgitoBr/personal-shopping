@@ -8,4 +8,5 @@ public interface ICartHeaderRepository
     Task<CartHeader> GetCartHeaderById(int cartHeaderId);
     Task<CartHeader> GetCartHeaderByUserId(string userId);
     Task RemoveCartHeader(CartHeader cartHeader);
+    Task UpdateCartHeader(CartHeader cartHeader);
 }

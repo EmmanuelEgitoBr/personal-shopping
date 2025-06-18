@@ -39,4 +39,10 @@ public class CartHeaderRepository : ICartHeaderRepository
         await _db.SaveChangesAsync();
     }
 
+    public async Task UpdateCartHeader(CartHeader cartHeader)
+    {
+        _db.CartHeaders.Update(cartHeader);
+        await _db.SaveChangesAsync();
+    }
+
 }

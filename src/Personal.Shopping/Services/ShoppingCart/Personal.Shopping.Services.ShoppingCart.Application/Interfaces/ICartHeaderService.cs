@@ -8,4 +8,5 @@ public interface ICartHeaderService
     Task<CartHeaderDto> GetCartHeaderByIdAsync(int cartHeaderId);
     Task<CartHeaderDto> GetCartHeaderByUserIdAsync(string userId);
     Task RemoveCartHeaderAsync(CartHeaderDto cartHeaderDto);
+    Task UpdateCartHeaderAsync(CartHeaderDto cartHeaderDto);
 }

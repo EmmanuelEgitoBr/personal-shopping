@@ -43,4 +43,10 @@ public class CartHeaderService : ICartHeaderService
         var cartHeader = _mapper.Map<CartHeader>(cartHeaderDto);
         await _cartHeaderRepository.RemoveCartHeader(cartHeader);
     }
+
+    public async Task UpdateCartHeaderAsync(CartHeaderDto cartHeaderDto)
+    {
+        var cartHeader = _mapper.Map<CartHeader>(cartHeaderDto);
+        await _cartHeaderRepository.UpdateCartHeader(cartHeader);
+    }
 }
