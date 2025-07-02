@@ -13,16 +13,19 @@ public class ShoppingCartController : ControllerBase
     private readonly ICartHeaderService _cartHeaderService;
     private readonly ICartDetailService _cartDetailService;
     private readonly IProductService _productService;
+    private readonly ICouponService _couponService;
     private ResponseDto _response;
 
     public ShoppingCartController(ICartHeaderService cartHeaderService,
         ICartDetailService cartDetailService,
-        IProductService productService)
+        IProductService productService,
+        ICouponService couponService)
     {
         _response = new ResponseDto();
         _cartHeaderService = cartHeaderService;
         _cartDetailService = cartDetailService;
         _productService = productService;
+        _couponService = couponService;
     }
 
     [HttpGet("get-cart/{userId}")]
@@ -45,6 +48,18 @@ public class ShoppingCartController : ControllerBase
             {
                 item.Product = products.FirstOrDefault(p => p.ProductId == item.ProductId)!;
                 cartDto.CartHeader.CartTotal += (item.Count * Convert.ToDouble(item.Product.Price));
+            }
+
+            //Aplly coupon
+            if(!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
+            {
+                CouponDto couponDto = await _couponService.GetCoupon(cartDto.CartHeader.CouponCode);
+
+                if (couponDto != null && cartDto.CartHeader.CartTotal > couponDto.MinAmount)
+                {
+                    cartDto.CartHeader.CartTotal -= couponDto.MinAmount;
+                    cartDto.CartHeader.Discount = couponDto.DiscountAmount;
+                }
             }
 
             _response.Result = cartDto;

@@ -49,6 +49,14 @@ public static class WebApiBuilderExtensions
             {
                 c.BaseAddress = new Uri(baseProductAddress!);
             });
+
+        var baseCouponAddress = builder.Configuration.GetValue<string>("ServicesUrls:CouponApi");
+
+        builder.Services.AddRefitClient<ICouponService>()
+            .ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri(baseCouponAddress!);
+            });
     }
 
     public static void AddSecurityConfiguration(this WebApplicationBuilder builder)
