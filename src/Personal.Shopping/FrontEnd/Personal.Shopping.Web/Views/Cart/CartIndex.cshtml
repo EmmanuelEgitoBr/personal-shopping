@@ -1,6 +1,70 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Olá!!</h1>
+﻿@using Personal.Shopping.Web.Models.ShoppingCart
+@model CartDto
+
+<form method="post">
+    <br/>
+    <div class="">
+        <div class="card border mt-4 container">
+            <div class="card-header bg-dark text-light m-lg-0 row">
+                <div class="col-6">
+                    <h3 class="text-success"><i class="bi bi-cart"></i>&nbsp; Carrinho de Compras</h3>
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-warning mt-2 btn-sm">Continuar Comprando</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-none d-lg-block">
+                    <div class="row text-info">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-5">
+                            Detalhes do Produto
+                        </div>
+                        <div class="col-lg-2">
+                            Preço
+                        </div>
+                        <div class="col-lg-2">
+                            Quantidade
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                </div>
+                @foreach(var cartObj in Model.CartDetails)
+                {
+                    <div class="row h-100">
+                        <div class="col-4 col-md-2 text-center py-2">
+                            <img src="@cartObj.Product.ImageUrl" class="rounded" width="25%" />
+                        </div>
+                        <div class="col-8 col-md-5">
+                            <h5>@cartObj.Product.Name</h5>
+                            <div style="font-size:11px;">@Html.Raw(cartObj.Product.Description)</div>
+                        </div>
+                        <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
+                            <span style="font-size:17px;">R$ @string.Format("{0:c}", cartObj.Product.Price)</span>
+                        </div>
+                        <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
+                            <span style="font-size:17px;">@cartObj.Count</span>
+                        </div>
+                        <div class="col-2 col-lg-1 p-0 pt-lg-4 text-center">
+                            <a asp-action="Remove" asp-route-cartDetailsId="@cartObj.CartDetailsId" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+                <hr/>
+                <div class="row">
+                    <div class="col-6">
+                        <span>Cupom:</span>
+                        <input />
+                        <button type="submit" class="btn btn-sm btn-success">Aplicar Cupom</button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <span class="text-danger" style="font-size:21px;">Total do Pedido: $$</span>
+                        <span class="text-success">Desconto:</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
