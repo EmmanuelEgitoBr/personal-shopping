@@ -14,10 +14,11 @@ public class CartHeaderRepository : ICartHeaderRepository
         _db = db;
     }
 
-    public async Task CreateCartHeader(CartHeader cartHeader)
+    public async Task<CartHeader> CreateCartHeader(CartHeader cartHeader)
     {
         _db.CartHeaders.Add(cartHeader);
         await _db.SaveChangesAsync();
+        return cartHeader;
     }
 
     public async Task<CartHeader> GetCartHeaderById(int cartHeaderId)

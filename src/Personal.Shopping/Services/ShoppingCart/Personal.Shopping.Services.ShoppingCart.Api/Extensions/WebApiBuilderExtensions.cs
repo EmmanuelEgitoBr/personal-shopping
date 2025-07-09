@@ -21,6 +21,7 @@ public static class WebApiBuilderExtensions
         builder.Services.AddDbContext<AppDbContext>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
+            options.EnableSensitiveDataLogging();
         });
     }
 
@@ -30,13 +31,13 @@ public static class WebApiBuilderExtensions
         builder.Services.AddScoped<ICartDetailRepository, CartDetailRepository>();
         builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
         builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
-        //builder.Services.AddScoped<IProductService>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)
     {
         IMapper mapper = MappingConfig.RegisterMap().CreateMapper();
-        builder.Services.AddSingleton(mapper);
+        builder.Services.AddScoped<IMapper>(_ => mapper);
+        //builder.Services.AddSingleton(mapper);
         builder.Services.AddAutoMapper(typeof(MappingConfig));
     }
 

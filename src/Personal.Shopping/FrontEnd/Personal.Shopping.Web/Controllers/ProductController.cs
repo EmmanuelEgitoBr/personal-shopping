@@ -1,21 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Duende.IdentityModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Personal.Shopping.Web.Models;
 using Personal.Shopping.Web.Models.Product;
+using Personal.Shopping.Web.Models.ShoppingCart;
 using Personal.Shopping.Web.Services.Interfaces;
-using System.Collections.Generic;
 
 namespace Personal.Shopping.Web.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IShoppingCartService _shoppingCartService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(IProductService productService, 
+            ICategoryService categoryService,
+            IShoppingCartService shoppingCartService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _shoppingCartService = shoppingCartService;
         }
 
         public async Task<IActionResult> Index()
@@ -45,6 +52,42 @@ namespace Personal.Shopping.Web.Controllers
                 productModel = ConvertToProductViewModel(product);
             }
             return View(productModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(ProductViewModel model)
+        {
+            CartDto cartDto = new CartDto()
+            {
+                CartHeader = new CartHeaderDto
+                {
+                    UserId = User.Claims.Where(u => u.Type == JwtClaimTypes.Subject)?.FirstOrDefault()!.Value
+                }
+            };
+
+            CartDetailDto cartDetailDto = new CartDetailDto
+            {
+                Count = model.Count,
+                ProductId = model.ProductId,
+            };
+
+            List<CartDetailDto> cartDetailsDto = new() { cartDetailDto };
+            cartDto.CartDetails = cartDetailsDto;
+
+            ResponseDto responseDto = await _shoppingCartService.CartUpsertAsync(cartDto);
+
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["Message"] = "Produto adicionado ao carrinho!";
+                TempData["MessageType"] = "success";
+
+                return RedirectToAction("Index");
+            }
+
+            TempData["Message"] = "Erro ao adicionar produto no carrinho!";
+            TempData["MessageType"] = "error";
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult ProductCreate()

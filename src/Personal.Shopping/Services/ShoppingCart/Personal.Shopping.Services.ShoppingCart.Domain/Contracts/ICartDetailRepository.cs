@@ -6,7 +6,7 @@ public interface ICartDetailRepository
 {
     Task CreateCartDeatil(CartDetail cartDetail);
     Task<CartDetail> GetCartDetailById(int cartDetailId);
-    Task<CartDetail> GetCartDetailByProductId(IEnumerable<CartDetail> cartDetails, int cardHeaderId);
+    Task<CartDetail> GetCartDetailByProductId(int productId, int cardHeaderId);
     IEnumerable<CartDetail> GetCartDetailsByCartHeaderId(int cartHeaderId);
     int GetTotalItemsCountByCartHeaderId(int cartHeaderId);
     Task RemoveCartDetail(CartDetail cartDetail);

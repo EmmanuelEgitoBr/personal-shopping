@@ -4,7 +4,7 @@ namespace Personal.Shopping.Services.ShoppingCart.Application.Interfaces;
 
 public interface ICartHeaderService
 {
-    Task CreateCartHeaderAsync(CartHeaderDto cartHeaderDto);
+    Task<int> CreateCartHeaderAsync(CartHeaderDto cartHeaderDto);
     Task<CartHeaderDto> GetCartHeaderByIdAsync(int cartHeaderId);
     Task<CartHeaderDto> GetCartHeaderByUserIdAsync(string userId);
     Task RemoveCartHeaderAsync(CartHeaderDto cartHeaderDto);

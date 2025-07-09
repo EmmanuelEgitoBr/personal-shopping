@@ -14,12 +14,14 @@ public static class WebApplicationBuilderExtensions
         AppSettings.AuthBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:AuthService")!;
         AppSettings.CouponBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:CouponApi")!;
         AppSettings.ProductBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:ProductApi")!;
+        AppSettings.ShoppingCartBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:ShoppingCartApi")!;
 
         builder.Services.AddScoped<IBaseService, BaseService>();
         builder.Services.AddScoped<ITokenProvider, TokenProvider>();
         builder.Services.AddScoped<ICouponService, CouponService>();
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
     }
 

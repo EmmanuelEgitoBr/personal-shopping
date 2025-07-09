@@ -34,6 +34,14 @@ public class ShoppingCartController : ControllerBase
         try
         {
             var cartHeader = await _cartHeaderService.GetCartHeaderByUserIdAsync(userId);
+
+            if(cartHeader == null)
+            {
+                _response.IsSuccess = false;
+                _response.Message = "Carrinho não encontrado!";
+                return _response;
+            }
+
             var cartDetails = _cartDetailService.GetCartDetailsByCartHeaderId(cartHeader.CartHeaderId);
 
             CartDto cartDto = new CartDto
@@ -82,12 +90,11 @@ public class ShoppingCartController : ControllerBase
             if (cartHeaderFromDb == null)
             {
                 //Create new header
-                await _cartHeaderService.CreateCartHeaderAsync(cartDto.CartHeader);
+                var cartHeaderId = await _cartHeaderService.CreateCartHeaderAsync(cartDto.CartHeader);
                 //Create new details
                 var cartDetail = cartDto.CartDetails.First();
-                cartDetail.CartHeaderId = cartDto.CartHeader.CartHeaderId;
+                cartDetail.CartHeaderId = cartHeaderId;
                 await _cartDetailService.CreateCartDeatilAsync(cartDetail);
-
             }
             else
             {

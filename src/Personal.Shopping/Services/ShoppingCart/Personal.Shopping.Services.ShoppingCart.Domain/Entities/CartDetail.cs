@@ -8,11 +8,10 @@ public class CartDetail
     [Key]
     public int CartDetailsId { get; set; }
     public int CartHeaderId { get; set; }
-    [ForeignKey(nameof(CartHeaderId))]
-    public CartHeader CartHeader { get; set; } = new CartHeader();
+    
     public int ProductId { get; set; }
 
     [NotMapped]
-    public Product Product { get; set; } = new Product();
+    public Product Product { get; set; }
     public int Count { get; set; }
 }

@@ -31,11 +31,11 @@ public class CartDetailService : ICartDetailService
 
     public async Task<CartDetailDto> GetCartDetailByProductIdAsync(IEnumerable<CartDetailDto> cartDetailsDto, int cardHeaderId)
     {
-        var cardDetails = _mapper.Map<IEnumerable<CartDetail>>(cartDetailsDto);
-        var cardDetail = await _cartDetailRepository.GetCartDetailByProductId(cardDetails, cardHeaderId);
-        var cardDetailDto = _mapper.Map<CartDetailDto>(cardDetail);
+        var productId = cartDetailsDto.First().ProductId;
+        var cartDetail = await _cartDetailRepository.GetCartDetailByProductId(productId, cardHeaderId);
+        var cartDetailDto = _mapper.Map<CartDetailDto>(cartDetail);
 
-        return cardDetailDto;
+        return cartDetailDto;
     }
 
     public IEnumerable<CartDetailDto> GetCartDetailsByCartHeaderId(int cartHeaderId)
@@ -57,7 +57,13 @@ public class CartDetailService : ICartDetailService
 
     public async Task UpdateCartDetailsAsync(CartDetailDto cartDetailDto)
     {
-        var cardDetail = _mapper.Map<CartDetail>( cartDetailDto);
-        await _cartDetailRepository.UpdateCartDetails(cardDetail);
+        var cartDetail = new CartDetail()
+        {
+            CartDetailsId = cartDetailDto.CartDetailsId,
+            CartHeaderId = cartDetailDto.CartHeaderId,
+            ProductId = cartDetailDto.ProductId,
+            Count = cartDetailDto.Count
+        };
+        await _cartDetailRepository.UpdateCartDetails(cartDetail);
     }
 }

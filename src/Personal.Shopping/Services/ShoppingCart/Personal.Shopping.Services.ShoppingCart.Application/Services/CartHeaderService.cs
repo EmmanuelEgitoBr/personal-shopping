@@ -17,11 +17,12 @@ public class CartHeaderService : ICartHeaderService
         _mapper = mapper;
     }
 
-    public async Task CreateCartHeaderAsync(CartHeaderDto cartHeaderDto)
+    public async Task<int> CreateCartHeaderAsync(CartHeaderDto cartHeaderDto)
     {
         var cartHeader = _mapper.Map<CartHeader>(cartHeaderDto);
 
-        await _cartHeaderRepository.CreateCartHeader(cartHeader);
+        var entity = await _cartHeaderRepository.CreateCartHeader(cartHeader);
+        return entity.CartHeaderId;
     }
 
     public async Task<CartHeaderDto> GetCartHeaderByIdAsync(int cartHeaderId)

@@ -26,10 +26,11 @@ public class CartDetailRepository : ICartDetailRepository
         return cartDetail!;
     }
 
-    public async Task<CartDetail> GetCartDetailByProductId(IEnumerable<CartDetail> cartDetails, int cardHeaderId)
+    public async Task<CartDetail> GetCartDetailByProductId(int productId, int cardHeaderId)
     {
+        //cartDetails.First().ProductId
         var cartDetail = await _db.CartDetails.FirstOrDefaultAsync(
-            c => c.ProductId == cartDetails.First().ProductId &&
+            c => c.ProductId == productId &&
             c.CartHeaderId == cardHeaderId);
         return cartDetail!;
     }
@@ -55,6 +56,12 @@ public class CartDetailRepository : ICartDetailRepository
 
     public async Task UpdateCartDetails(CartDetail cartDetail)
     {
+        var local = _db.CartDetails.Local
+            .FirstOrDefault(e => e.CartDetailsId == cartDetail.CartDetailsId);
+
+        if (local != null)
+            _db.Entry(local).State = EntityState.Detached;
+        
         _db.CartDetails.Update(cartDetail);
         await _db.SaveChangesAsync();
     }
