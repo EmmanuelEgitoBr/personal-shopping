@@ -16,11 +16,11 @@ namespace Personal.Shopping.Services.Product.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllProducts()
+        public async Task<ResponseDto> GetAllProducts()
         {
             var result = await _productService.GetAllProductsAsync();
 
-            return Ok(result);
+            return result;
         }
 
         [HttpGet("get-by-id/{id}")]

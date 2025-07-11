@@ -1,4 +1,4 @@
-﻿namespace Personal.Shopping.Services.ShoppingCart.Api.Models;
+﻿namespace Personal.Shopping.Services.ShoppingCart.Application.Dtos;
 
 public class ResponseDto
 {

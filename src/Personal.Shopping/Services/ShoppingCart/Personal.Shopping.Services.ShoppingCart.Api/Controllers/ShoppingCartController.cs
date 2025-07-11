@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Personal.Shopping.Services.ShoppingCart.Api.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Personal.Shopping.Services.ShoppingCart.Application.Dtos;
 using Personal.Shopping.Services.ShoppingCart.Application.Interfaces;
 
@@ -50,7 +49,8 @@ public class ShoppingCartController : ControllerBase
                 CartDetails = cartDetails
             };
 
-            IEnumerable<ProductDto> products = _productService.GetAllProducs().Result;
+            var responseDto = await _productService.GetAllProducs();
+            IEnumerable<ProductDto> products = JsonConvert.DeserializeObject<IEnumerable<ProductDto>>(Convert.ToString(responseDto.Result)!)!;
 
             foreach (var item in cartDto.CartDetails)
             {
