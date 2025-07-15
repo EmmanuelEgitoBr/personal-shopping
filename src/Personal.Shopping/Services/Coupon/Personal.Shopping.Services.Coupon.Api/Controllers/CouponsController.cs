@@ -34,11 +34,11 @@ public class CouponsController : ControllerBase
     }
 
     [HttpGet("get-by-code/{code}")]
-    public async Task<ActionResult> GetCouponByCode(string code)
+    public async Task<ResponseDto> GetCouponByCode(string code)
     {
         var result = await _couponService.GetCuponByCodeAsync(code.ToUpper());
 
-        return Ok(result);
+        return result;
     }
 
     [HttpPost]

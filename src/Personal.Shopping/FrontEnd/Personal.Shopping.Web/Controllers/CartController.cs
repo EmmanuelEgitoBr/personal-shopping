@@ -25,6 +25,52 @@ namespace Personal.Shopping.Web.Controllers
             return View(cartDto);
         }
 
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
+            ResponseDto responseDto = await _cartService.RemoveCartAsync(cartDetailsId);
+
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["Message"] = "Carrinho excluído com sucesso!";
+                TempData["MessageType"] = "success";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApplyCoupon(CartDto cartDto)
+        {
+            ResponseDto responseDto = await _cartService.ApplyCouponAsync(cartDto);
+
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["Message"] = "Cupom aplicado com sucesso!";
+                TempData["MessageType"] = "success";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            TempData["Message"] = "Erro ao aplicar cupom!";
+            TempData["MessageType"] = "error";
+            return RedirectToAction(nameof(CartIndex));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
+        {
+            ResponseDto responseDto = await _cartService.RemoveCouponAsync(cartDto);
+
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["Message"] = "Cupom removido com sucesso!";
+                TempData["MessageType"] = "success";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            TempData["Message"] = "Erro ao remover cupom!";
+            TempData["MessageType"] = "error";
+            return RedirectToAction(nameof(CartIndex));
+        }
+
         private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
         {
             var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;

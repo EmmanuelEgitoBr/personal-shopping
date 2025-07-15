@@ -52,7 +52,7 @@ public class ShoppingCartService : IShoppingCartService
         {
             ApiType = ApiType.POST,
             Content = cart,
-            Url = AppSettings.ShoppingCartBaseUrl + $"/api/apply-coupon"
+            Url = AppSettings.ShoppingCartBaseUrl + $"/api/cart/apply-coupon"
         };
         return await _baseService.SendAsync(request!)!;
     }

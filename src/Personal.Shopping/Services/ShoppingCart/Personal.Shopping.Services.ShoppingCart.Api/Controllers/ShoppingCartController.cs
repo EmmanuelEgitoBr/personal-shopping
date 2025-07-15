@@ -61,13 +61,16 @@ public class ShoppingCartController : ControllerBase
             //Aplly coupon
             if(!string.IsNullOrEmpty(cartDto.CartHeader.CouponCode))
             {
-                CouponDto couponDto = await _couponService.GetCoupon(cartDto.CartHeader.CouponCode);
+                var couponCode = cartDto.CartHeader.CouponCode;
+                var responseCouponDto = await _couponService.GetCouponAsync(couponCode);
+                var couponDto = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(responseCouponDto.Result)!)!;
 
                 if (couponDto != null && cartDto.CartHeader.CartTotal > couponDto.MinAmount)
                 {
-                    cartDto.CartHeader.CartTotal -= couponDto.MinAmount;
-                    cartDto.CartHeader.Discount = couponDto.DiscountAmount;
-                }
+                    var oldPrice = cartDto.CartHeader.CartTotal;
+                    var newPrice = oldPrice * (1 - ((couponDto.DiscountAmount) / 100));
+                    cartDto.CartHeader.CartTotal = newPrice;
+                    cartDto.CartHeader.Discount = oldPrice - newPrice;                }
             }
 
             _response.Result = cartDto;
@@ -159,10 +162,11 @@ public class ShoppingCartController : ControllerBase
         try
         {            
             var cartHeaderFromDb = _cartHeaderService.GetCartHeaderByUserIdAsync(cartDto.CartHeader.UserId!).Result;
-            cartHeaderFromDb.CouponCode = cartDto.CartHeader.CouponCode;
+            var couponCode = cartDto.CartHeader.CouponCode!.ToUpper();
+            cartHeaderFromDb.CouponCode = couponCode;
+
             await _cartHeaderService.UpdateCartHeaderAsync(cartHeaderFromDb)!;
-            
-            
+
             _response.Result = cartHeaderFromDb;
             _response.IsSuccess = true;
         }
@@ -180,9 +184,9 @@ public class ShoppingCartController : ControllerBase
         try
         {
             var cartHeaderFromDb = _cartHeaderService.GetCartHeaderByUserIdAsync(cartDto.CartHeader.UserId!).Result;
-            cartHeaderFromDb.CouponCode = "";
+            
+            cartHeaderFromDb.CouponCode = null;
             await _cartHeaderService.UpdateCartHeaderAsync(cartHeaderFromDb)!;
-
 
             _response.Result = cartHeaderFromDb;
             _response.IsSuccess = true;

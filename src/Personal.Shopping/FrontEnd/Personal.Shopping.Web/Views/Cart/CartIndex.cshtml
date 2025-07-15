@@ -3,6 +3,8 @@
 
 <form method="post">
     <br/>
+    <input asp-for="CartHeader.UserId" hidden />
+    <input asp-for="CartHeader.CartHeaderId" hidden/>
     <div class="">
         <div class="card border mt-4 container">
             <div class="card-header bg-dark text-light m-lg-0 row">
@@ -40,7 +42,7 @@
                             <div style="font-size:11px;">@Html.Raw(cartObj.Product.Description)</div>
                         </div>
                         <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
-                            <span style="font-size:17px;">R$ @string.Format("{0:c}", cartObj.Product.Price)</span>
+                            <span style="font-size:17px;">@string.Format("{0:c}", cartObj.Product.Price)</span>
                         </div>
                         <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
                             <span style="font-size:17px;">@cartObj.Count</span>
@@ -56,13 +58,33 @@
                 <div class="row">
                     <div class="col-6">
                         <span>Cupom:</span>
-                        <input />
-                        <button type="submit" class="btn btn-sm btn-success">Aplicar Cupom</button>
+                        @if(string.IsNullOrEmpty(Model.CartHeader.CouponCode))
+                        {
+                            <input asp-for="CartHeader.CouponCode" />
+                            <button type="submit" asp-action="ApplyCoupon" class="btn btn-sm btn-success">Aplicar Cupom</button>
+                        }
+                        else
+                        {
+                            <input asp-for="CartHeader.CouponCode" />
+                            <button type="submit" asp-action="RemoveCoupon" class="btn btn-sm btn-danger">Remover Cupom</button>
+                        }
                     </div>
                     <div class="col-6 text-end">
-                        <span class="text-danger" style="font-size:21px;">Total do Pedido: $$</span>
-                        <span class="text-success">Desconto:</span>
+                        <span class="text-danger" style="font-size:21px;">Total do Pedido: @string.Format("{0:c}", Model.CartHeader.CartTotal)</span>
+                        @if(Model.CartHeader.Discount > 0)
+                        {
+                            <br />
+                            <span class="text-success">Desconto: @string.Format("{0:c}", Model.CartHeader.Discount)</span>
+                        }
                     </div>
+                </div>
+            </div>
+            <div class="card-footer row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-outline-danger form-control">E-mail</button>
+                </div>
+                <div class="col-6 col-md-3 offset-md-6">
+                    <button disabled class="btn btn-success form-control" value="Checkout"></button>
                 </div>
             </div>
         </div>
