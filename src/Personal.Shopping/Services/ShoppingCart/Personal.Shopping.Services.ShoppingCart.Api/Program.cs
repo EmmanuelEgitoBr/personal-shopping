@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.AddSqlConfiguration();
+builder.AddAwsConfig();
 builder.AddApplicationConfig();
 builder.AddMapperConfiguration();
 

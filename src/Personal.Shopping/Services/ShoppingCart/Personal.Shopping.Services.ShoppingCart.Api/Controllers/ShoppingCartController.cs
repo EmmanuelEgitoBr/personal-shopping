@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Personal.Shopping.Integration.MessageBus.Interfaces;
 using Personal.Shopping.Services.ShoppingCart.Application.Dtos;
 using Personal.Shopping.Services.ShoppingCart.Application.Interfaces;
 
@@ -13,18 +14,24 @@ public class ShoppingCartController : ControllerBase
     private readonly ICartDetailService _cartDetailService;
     private readonly IProductService _productService;
     private readonly ICouponService _couponService;
+    private readonly IMessageBus _messageBus;
+    private readonly IConfiguration _configuration;
     private ResponseDto _response;
 
     public ShoppingCartController(ICartHeaderService cartHeaderService,
         ICartDetailService cartDetailService,
         IProductService productService,
-        ICouponService couponService)
+        ICouponService couponService,
+        IMessageBus messageBus,
+        IConfiguration configuration)
     {
         _response = new ResponseDto();
         _cartHeaderService = cartHeaderService;
         _cartDetailService = cartDetailService;
         _productService = productService;
         _couponService = couponService;
+        _messageBus = messageBus;
+        _configuration = configuration;
     }
 
     [HttpGet("get-cart/{userId}")]
@@ -190,6 +197,25 @@ public class ShoppingCartController : ControllerBase
 
             _response.Result = cartHeaderFromDb;
             _response.IsSuccess = true;
+        }
+        catch (Exception ex)
+        {
+            _response.Message = ex.Message.ToString();
+            _response.IsSuccess = false;
+        }
+        return _response;
+    }
+
+    [HttpPost]
+    public async Task<ResponseDto> EmailCartRequest([FromBody]CartDto cartDto)
+    {
+        try
+        {
+            var topicQueueName = _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCart");
+            await _messageBus.PublishMessageAsync(cartDto, topicQueueName!);
+
+            _response.IsSuccess = true;
+            _response.Result = "OK";
         }
         catch (Exception ex)
         {

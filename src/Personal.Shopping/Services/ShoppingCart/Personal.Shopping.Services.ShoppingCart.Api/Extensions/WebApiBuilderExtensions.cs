@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using Amazon.SimpleNotificationService;
+using Amazon.SQS;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Personal.Shopping.Integration.MessageBus;
+using Personal.Shopping.Integration.MessageBus.Interfaces;
 using Personal.Shopping.Services.ShoppingCart.Application.Interfaces;
 using Personal.Shopping.Services.ShoppingCart.Application.Mappings;
 using Personal.Shopping.Services.ShoppingCart.Application.Services;
@@ -25,19 +29,27 @@ public static class WebApiBuilderExtensions
         });
     }
 
+    public static void AddAwsConfig(this WebApplicationBuilder builder)
+    {
+        var awsOptions = builder.Configuration.GetAWSOptions("AWS");
+        builder.Services.AddDefaultAWSOptions(awsOptions);
+        builder.Services.AddAWSService<IAmazonSQS>();
+        builder.Services.AddAWSService<IAmazonSimpleNotificationService>();
+    }
+
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<ICartDetailService, CartDetailService>();
         builder.Services.AddScoped<ICartDetailRepository, CartDetailRepository>();
         builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
         builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
+        builder.Services.AddScoped<IMessageBus, MessageBus>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)
     {
         IMapper mapper = MappingConfig.RegisterMap().CreateMapper();
         builder.Services.AddScoped<IMapper>(_ => mapper);
-        //builder.Services.AddSingleton(mapper);
         builder.Services.AddAutoMapper(typeof(MappingConfig));
     }
 

@@ -18,7 +18,7 @@ public class MessageBus : IMessageBus
         _snsClient = snsClient;
     }
 
-    public async Task PublishMessage(object message, string topicQueueName)
+    public async Task PublishMessageAsync(object message, string topicQueueName)
     {
         var jsonMessage = JsonConvert.SerializeObject(message);
 
