@@ -206,7 +206,7 @@ public class ShoppingCartController : ControllerBase
         return _response;
     }
 
-    [HttpPost]
+    [HttpPost("email-cart")]
     public async Task<ResponseDto> EmailCartRequest([FromBody]CartDto cartDto)
     {
         try

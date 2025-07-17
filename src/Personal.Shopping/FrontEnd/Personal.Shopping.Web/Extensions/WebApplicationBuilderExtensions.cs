@@ -4,7 +4,6 @@ using Personal.Shopping.Web.Services.Interfaces.Base;
 using Personal.Shopping.Web.Services.Interfaces;
 using Personal.Shopping.Web.Services;
 using Personal.Shopping.Web.Settings;
-using Personal.Shopping.Web.Handlers;
 
 namespace Personal.Shopping.Web.Extensions;
 
@@ -27,14 +26,9 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<IAuthService, AuthService>();
     }
 
-    public static void AddApiHandlers(this WebApplicationBuilder builder)
-    {   
-        builder.Services.AddScoped<ApiAuthHttpClientHandler>();
-    }
-
     public static void AddHttpConfiguration(this WebApplicationBuilder builder)
     {
-        builder.Services.AddHttpClient("ShoppingApi").AddHttpMessageHandler<ApiAuthHttpClientHandler>();
+        builder.Services.AddHttpClient("ShoppingApi");
     }
 
     public static void AddAuthConfiguration(this WebApplicationBuilder builder)

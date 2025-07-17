@@ -42,7 +42,5 @@ public class MessageBus : IMessageBus
         {
             throw new ArgumentException("Identificador inválido. Use ARN do SNS ou URL do SQS.");
         }
-
-        throw new NotImplementedException();
     }
 }

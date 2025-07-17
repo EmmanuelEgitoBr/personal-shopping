@@ -66,4 +66,15 @@ public class ShoppingCartService : IShoppingCartService
             Url = AppSettings.ShoppingCartBaseUrl + $"/api/cart/remove-coupon"
         });
     }
+
+    public async Task<ResponseDto> EmailCartAsync(CartDto cart)
+    {
+        var request = new RequestDto()
+        {
+            ApiType = ApiType.POST,
+            Content = cart,
+            Url = AppSettings.ShoppingCartBaseUrl + $"/api/cart/email-cart"
+        };
+        return await _baseService.SendAsync(request!)!;
+    }
 }

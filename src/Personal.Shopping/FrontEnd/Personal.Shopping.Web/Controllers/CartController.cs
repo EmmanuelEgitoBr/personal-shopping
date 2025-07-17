@@ -56,6 +56,25 @@ namespace Personal.Shopping.Web.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> EmailCart(CartDto model)
+        {
+            CartDto cart = await LoadCartDtoBasedOnLoggedInUser();
+            cart.CartHeader.Email = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Email)?.FirstOrDefault()?.Value;
+
+            ResponseDto responseDto = await _cartService.EmailCartAsync(cart);
+
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["Message"] = "Email enviado com sucesso!";
+                TempData["MessageType"] = "success";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            TempData["Message"] = "Erro ao enviar email!";
+            TempData["MessageType"] = "error";
+            return RedirectToAction(nameof(CartIndex));
+        }
+
+        [HttpPost]
         public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
         {
             ResponseDto responseDto = await _cartService.RemoveCouponAsync(cartDto);

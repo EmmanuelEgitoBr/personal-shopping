@@ -15,4 +15,16 @@ public class CartHeader
 
     [NotMapped]
     public double CartTotal { get; set; }
+
+    [NotMapped]
+    public string? FirstName { get; set; }
+
+    [NotMapped]
+    public string? LastName { get; set; }
+
+    [NotMapped]
+    public string? Email { get; set; }
+
+    [NotMapped]
+    public string? Phone { get; set; }
 }

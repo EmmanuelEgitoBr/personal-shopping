@@ -26,7 +26,10 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7003;http://localhost:5221",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AWS_ACCESS_KEY_ID": "AKIAS252VYR4ARDTL6GL",
+        "AWS_SECRET_ACCESS_KEY": "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",
+        "AWS_REGION": "sa-east-1"
       }
     },
     "IIS Express": {
@@ -34,7 +37,10 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AWS_ACCESS_KEY_ID": "AKIA3ORPS55UHWSDEV6S",
+        "AWS_SECRET_ACCESS_KEY": "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",
+        "AWS_REGION": "sa-east-1"
       }
     }
   }

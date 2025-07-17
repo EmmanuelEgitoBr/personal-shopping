@@ -10,4 +10,5 @@ public interface IShoppingCartService
     Task<ResponseDto> GetCartByUserIdAsync(string userId);
     Task<ResponseDto> ApplyCouponAsync(CartDto cart);
     Task<ResponseDto> RemoveCouponAsync(CartDto cart);
+    Task<ResponseDto> EmailCartAsync(CartDto cart);
 }
