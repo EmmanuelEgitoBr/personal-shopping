@@ -51,6 +51,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Integration.MessageBus", "Integration\MessageBus\Personal.Shopping.Integration.MessageBus\Personal.Shopping.Integration.MessageBus.csproj", "{17E582FA-2C55-4538-9645-109199FD633E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Email", "Email", "{171A0FB6-F22F-46DC-8D7B-428E284974A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Email.Api", "Services\Email\Personal.Shopping.Services.Email.Api\Personal.Shopping.Services.Email.Api.csproj", "{6CD1B881-CDC1-41D5-86EC-8ECCBA67C814}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Email.Domain", "Services\Email\Personal.Shopping.Services.Email.Domain\Personal.Shopping.Services.Email.Domain.csproj", "{789A0A23-4C99-4C90-8D05-7B5C2C19CC43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Email.Infra", "Services\Email\Personal.Shopping.Services.Email.Infra\Personal.Shopping.Services.Email.Infra.csproj", "{64840F8F-9F0B-4BC2-9DBC-6B3CA011CBAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Email.Application", "Services\Email\Personal.Shopping.Services.Email.Application\Personal.Shopping.Services.Email.Application.csproj", "{5DA5FF1C-3148-4DAB-860E-D2C106473C74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +131,22 @@ Global
 		{17E582FA-2C55-4538-9645-109199FD633E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17E582FA-2C55-4538-9645-109199FD633E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17E582FA-2C55-4538-9645-109199FD633E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD1B881-CDC1-41D5-86EC-8ECCBA67C814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD1B881-CDC1-41D5-86EC-8ECCBA67C814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD1B881-CDC1-41D5-86EC-8ECCBA67C814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD1B881-CDC1-41D5-86EC-8ECCBA67C814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{789A0A23-4C99-4C90-8D05-7B5C2C19CC43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789A0A23-4C99-4C90-8D05-7B5C2C19CC43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789A0A23-4C99-4C90-8D05-7B5C2C19CC43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789A0A23-4C99-4C90-8D05-7B5C2C19CC43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64840F8F-9F0B-4BC2-9DBC-6B3CA011CBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64840F8F-9F0B-4BC2-9DBC-6B3CA011CBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64840F8F-9F0B-4BC2-9DBC-6B3CA011CBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64840F8F-9F0B-4BC2-9DBC-6B3CA011CBAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DA5FF1C-3148-4DAB-860E-D2C106473C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DA5FF1C-3148-4DAB-860E-D2C106473C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DA5FF1C-3148-4DAB-860E-D2C106473C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DA5FF1C-3148-4DAB-860E-D2C106473C74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,5 +172,10 @@ Global
 		{AC2C4D20-F884-41BF-AFF6-4C93AE7D0B70} = {5EC1E687-65ED-4609-AB7D-31FCD28C03E2}
 		{35CDBF6C-B899-4DC5-84F2-19CC943B677B} = {5EC1E687-65ED-4609-AB7D-31FCD28C03E2}
 		{17E582FA-2C55-4538-9645-109199FD633E} = {E16733AA-3326-4E74-A8A5-960CD34A0825}
+		{171A0FB6-F22F-46DC-8D7B-428E284974A7} = {F5D97BF2-FACA-40C4-A4D9-A84207D7F22B}
+		{6CD1B881-CDC1-41D5-86EC-8ECCBA67C814} = {171A0FB6-F22F-46DC-8D7B-428E284974A7}
+		{789A0A23-4C99-4C90-8D05-7B5C2C19CC43} = {171A0FB6-F22F-46DC-8D7B-428E284974A7}
+		{64840F8F-9F0B-4BC2-9DBC-6B3CA011CBAC} = {171A0FB6-F22F-46DC-8D7B-428E284974A7}
+		{5DA5FF1C-3148-4DAB-860E-D2C106473C74} = {171A0FB6-F22F-46DC-8D7B-428E284974A7}
 	EndGlobalSection
 EndGlobal
