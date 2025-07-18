@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Personal.Shopping.Services.Order.Application.Interfaces;
 using Personal.Shopping.Services.Order.Application.Mappings;
+using Personal.Shopping.Services.Order.Application.Services;
 using Personal.Shopping.Services.Order.Domain.Interfaces;
 using Personal.Shopping.Services.Order.Infra.Context;
 using Personal.Shopping.Services.Order.Infra.Repositories;
@@ -20,11 +22,9 @@ public static class WebApiBuilderExtensions
 
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
     {
-        //builder.Services.AddScoped<ICartDetailService, CartDetailService>();
-        builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-        //builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
-        //builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
-        //builder.Services.AddScoped<IMessageBus, MessageBus>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
+        builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)
