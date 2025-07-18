@@ -17,7 +17,7 @@ namespace Personal.Shopping.Services.Order.Api.Controllers
             _orderService = orderService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("create-order")]
         public async Task<ResponseDto> CreateOrder([FromBody]CartDto cartDto)
         {

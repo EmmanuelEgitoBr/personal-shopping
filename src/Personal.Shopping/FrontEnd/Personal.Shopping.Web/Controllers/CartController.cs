@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Personal.Shopping.Web.Models;
+using Personal.Shopping.Web.Models.Order;
 using Personal.Shopping.Web.Models.ShoppingCart;
 using Personal.Shopping.Web.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,10 +12,12 @@ namespace Personal.Shopping.Web.Controllers
     public class CartController : Controller
     {
         private readonly IShoppingCartService _cartService;
+        private readonly IOrderService _orderService;
 
-        public CartController(IShoppingCartService cartService)
+        public CartController(IShoppingCartService cartService, IOrderService orderService)
         {
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         [Authorize]
@@ -31,6 +34,26 @@ namespace Personal.Shopping.Web.Controllers
             var cartDto = await LoadCartDtoBasedOnLoggedInUser();
 
             return View(cartDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CartDto cartDto)
+        {
+            var cart = await LoadCartDtoBasedOnLoggedInUser();
+            cart.CartHeader.Email = cartDto.CartHeader.Email;
+            cart.CartHeader.Phone = cartDto.CartHeader.Phone;
+            cart.CartHeader.FirstName = cartDto.CartHeader.FirstName;
+            cart.CartHeader.LastName = cartDto.CartHeader.LastName;
+
+            var response = await _orderService.CreateOrderAsync(cart);
+            OrderHeaderDto orderHeaderDto = new OrderHeaderDto();
+
+            if (response != null && response.IsSuccess)
+            {
+                orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result)!)!;
+            }
+
+            return View();
         }
 
         public async Task<IActionResult> Remove(int cartDetailsId)

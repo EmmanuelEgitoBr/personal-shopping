@@ -15,6 +15,7 @@ public static class WebApplicationBuilderExtensions
         AppSettings.CouponBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:CouponApi")!;
         AppSettings.ProductBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:ProductApi")!;
         AppSettings.ShoppingCartBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:ShoppingCartApi")!;
+        AppSettings.OrderBaseUrl = builder.Configuration.GetValue<string>("ServicesUrls:OrderApi")!;
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<IBaseService, BaseService>();
@@ -23,6 +24,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
     }
 
