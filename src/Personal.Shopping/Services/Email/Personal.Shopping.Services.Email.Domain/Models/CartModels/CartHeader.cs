@@ -1,6 +1,6 @@
-﻿namespace Personal.Shopping.Services.Email.Application.Dtos.Cart;
+﻿namespace Personal.Shopping.Services.Email.Domain.Models.CartModels;
 
-public class CartHeaderDto
+public class CartHeader
 {
     public int CartHeaderId { get; set; }
     public string? UserId { get; set; }

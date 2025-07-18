@@ -1,9 +1,13 @@
 ﻿using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Personal.Shopping.Services.Email.Application.Dtos.Cart;
 using Personal.Shopping.Services.Email.Application.Interfaces;
+using Personal.Shopping.Services.Email.Application.Models;
+using Personal.Shopping.Services.Email.Domain.Interfaces;
+using Personal.Shopping.Services.Email.Domain.Models.CartModels;
+using Personal.Shopping.Services.Email.Infra.Repositories;
 
 namespace Personal.Shopping.Services.Email.Application.Services.Messaging;
 
@@ -11,14 +15,21 @@ public class ServiceBusConsumer : IServiceBusConsumer
 {
     private readonly IAmazonSQS _sqsClient;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<ServiceBusConsumer> _logger;
+    private readonly EmailRepository _emailRepository;
     private readonly string _queueUrl;
     private CancellationTokenSource _cts;
     private Task? _pollingTask;
 
-    public ServiceBusConsumer(IAmazonSQS sqsClient, IConfiguration configuration)
+    public ServiceBusConsumer(IAmazonSQS sqsClient, 
+                              IConfiguration configuration,
+                              ILogger<ServiceBusConsumer> logger,
+                              EmailRepository emailRepository)
     {
         _sqsClient = sqsClient;
         _configuration = configuration;
+        _logger = logger;
+        _emailRepository = emailRepository;
         _cts = new CancellationTokenSource();
 
         // Obtenha a URL da fila usando o nome da fila
@@ -52,24 +63,32 @@ public class ServiceBusConsumer : IServiceBusConsumer
 
             var response = await _sqsClient.ReceiveMessageAsync(request, cancellationToken);
 
-            foreach (var message in response.Messages)
+            if (response.Messages is not null && response.Messages.Count > 0)
             {
-                try
+                foreach (var message in response.Messages)
                 {
-                    // Deserialize e processa a mensagem
-                    var cart = JsonConvert.DeserializeObject<CartDto>(message.Body);
+                    try
+                    {
+                        // Deserialize e processa a mensagem
+                        var envelope = JsonConvert.DeserializeObject<SnSMessageEnvelope>(message.Body);
+                        var cart = JsonConvert.DeserializeObject<Cart>(envelope!.Message!);
 
-                    // TODO: Processar email
-                    Console.WriteLine($"Recebido: {message.Body}");
+                        await _emailRepository.EmailCartAndLog(cart!);
+                        _logger.LogInformation($"Recebido: {message.Body}");
 
-                    // Apagar da fila após processar
-                    await _sqsClient.DeleteMessageAsync(_queueUrl, message.ReceiptHandle, cancellationToken);
+                        // Apagar da fila após processar
+                        await _sqsClient.DeleteMessageAsync(_queueUrl, message.ReceiptHandle, cancellationToken);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError($"Erro ao processar mensagem: {ex.Message}");
+                        // opcional: não deletar a mensagem para retry automático
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro ao processar mensagem: {ex.Message}");
-                    // opcional: não deletar a mensagem para retry automático
-                }
+            }
+            else
+            {
+                _logger.LogInformation("Sem mensagens a serem processadas");
             }
         }
     }

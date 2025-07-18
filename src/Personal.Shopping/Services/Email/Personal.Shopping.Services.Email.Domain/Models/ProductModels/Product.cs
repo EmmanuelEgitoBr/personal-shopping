@@ -1,6 +1,6 @@
-﻿namespace Personal.Shopping.Services.Email.Application.Dtos.Product;
+﻿namespace Personal.Shopping.Services.Email.Domain.Models.ProductModels;
 
-public class ProductDto
+public class Product
 {
     public int ProductId { get; set; }
     public string Name { get; set; } = string.Empty;
