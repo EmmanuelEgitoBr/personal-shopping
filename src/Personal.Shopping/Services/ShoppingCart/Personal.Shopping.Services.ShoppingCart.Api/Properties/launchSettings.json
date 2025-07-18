@@ -37,10 +37,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "AWS_ACCESS_KEY_ID": "AKIA3ORPS55UHWSDEV6S",
-        "AWS_SECRET_ACCESS_KEY": "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",
-        "AWS_REGION": "sa-east-1"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }
