@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Personal.Shopping.Web.Models;
 using Personal.Shopping.Web.Models.Order;
 using Personal.Shopping.Web.Models.ShoppingCart;
+using Personal.Shopping.Web.Models.Stripe;
 using Personal.Shopping.Web.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -51,9 +52,32 @@ namespace Personal.Shopping.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result)!)!;
-            }
 
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
+                StripeRequestDto stripeRequestDto = new()
+                {
+                    ApprovedUrl = domain + "cart/confirmation?orderId=" + orderHeaderDto.OrderHeaderId,
+                    CancelUrl = domain + "cart/checkout",
+                    OrderHeader = orderHeaderDto,
+                };
+
+                var stripeResponse = await _orderService.CreateStripeSessionAsync(stripeRequestDto);
+                StripeRequestDto stripeResponseResult = JsonConvert.DeserializeObject<StripeRequestDto>(Convert.ToString(stripeResponse.Result)!)!;
+
+                if(stripeResponseResult != null)
+                {
+
+                    Response.Headers.Append("Location", stripeResponseResult.StripeSessionUrl);
+                    return new StatusCodeResult(303);
+                }
+            }
             return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Confirmation(int orderId)
+        {
+            return View(orderId);
         }
 
         public async Task<IActionResult> Remove(int cartDetailsId)

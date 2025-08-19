@@ -4,6 +4,7 @@ using Personal.Shopping.Web.Services.Interfaces;
 using Personal.Shopping.Web.Services.Interfaces.Base;
 using Personal.Shopping.Web.Settings;
 using Personal.Shopping.Web.Models.ShoppingCart;
+using Personal.Shopping.Web.Models.Stripe;
 
 namespace Personal.Shopping.Web.Services;
 
@@ -23,6 +24,17 @@ public class OrderService : IOrderService
             ApiType = ApiType.POST,
             Content = cartDto,
             Url = AppSettings.OrderBaseUrl + $"/api/orders/create-order"
+        };
+        return await _baseService.SendAsync(request!)!;
+    }
+
+    public async Task<ResponseDto> CreateStripeSessionAsync(StripeRequestDto stripeRequestDto)
+    {
+        var request = new RequestDto()
+        {
+            ApiType = ApiType.POST,
+            Content = stripeRequestDto,
+            Url = AppSettings.OrderBaseUrl + $"/api/orders/create-stripe-session"
         };
         return await _baseService.SendAsync(request!)!;
     }
