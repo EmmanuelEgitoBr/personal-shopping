@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Personal.Shopping.Services.Coupon.Application.Dtos;
 using Personal.Shopping.Services.Coupon.Application.Interfaces;
+using Stripe;
 
 namespace Personal.Shopping.Services.Coupon.Api.Controllers;
 
@@ -45,7 +46,17 @@ public class CouponsController : ControllerBase
     public async Task<ActionResult> CreateCoupon([FromBody] CouponDto couponDto)
     {
         var result = await _couponService.CreateCouponAsync(couponDto);
-        
+
+        var options = new CouponCreateOptions
+        {
+            AmountOff = (long)(couponDto.DiscountAmount * 100),
+            Name = couponDto.CouponCode,
+            Currency = "brl",
+            Id = couponDto.CouponCode
+        };
+        var service = new CouponService();
+        Stripe.Coupon coupon = service.Create(options);
+
         return Ok(result);
     }
 
@@ -60,7 +71,16 @@ public class CouponsController : ControllerBase
     [HttpDelete("delete/{id}")]
     public async Task<ActionResult> DeleteCoupon(int id)
     {
+        var result = await _couponService.GetCuponByIdAsync(id);
+
+        if(result == null) { return NoContent(); }
+
+        var couponDto = (CouponDto)result.Result!;
+
         await _couponService.DeleteCouponAsync(id);
+
+        var service = new CouponService();
+        service.Delete(couponDto.CouponCode);
 
         return Ok();
     }

@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-StripeConfiguration.ApiKey = "sk_test_51RwRjbRvsAANkPBgaLkTObdUYCtfCKAPEuZdeQVmsnBM4XAZ3nRgh9u2hxG8cD5ym6QxQziiPkwUIF3JRkODg9KJ00xJLQmXMP";
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
 
 app.UseRouting();

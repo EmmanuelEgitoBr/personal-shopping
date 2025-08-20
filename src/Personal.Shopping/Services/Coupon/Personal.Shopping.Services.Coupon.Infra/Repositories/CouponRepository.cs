@@ -29,7 +29,7 @@ public class CouponRepository : ICouponRepository
 
     public async Task<Domain.Entities.Coupon> GetCouponsById(int couponId)
     {
-        return await _db.Coupons.FirstOrDefaultAsync(c => c.CouponId == couponId);
+        return await _db.Coupons.AsNoTracking().FirstOrDefaultAsync(c => c.CouponId == couponId);
     }
 
     public async Task<Domain.Entities.Coupon> GetCuponByCode(string couponCode)
