@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Personal.Shopping.Services.Order.Application.Dtos;
 using Personal.Shopping.Services.Order.Application.Dtos.Cart;
 using Personal.Shopping.Services.Order.Application.Dtos.Stripe;
 using Personal.Shopping.Services.Order.Application.Interfaces;
+using Stripe;
 using Stripe.Checkout;
 
 namespace Personal.Shopping.Services.Order.Api.Controllers
@@ -59,6 +61,19 @@ namespace Personal.Shopping.Services.Order.Api.Controllers
                     options.LineItems.Add(sessionLineItem);
                 }
 
+                var discountObj = new List<SessionDiscountOptions>()
+                {
+                    new() {
+                        //Coupon = stripeRequestDto.OrderHeader.CouponCode
+                        Coupon = "CCePorQG"
+                    }
+                };
+
+                if(stripeRequestDto.OrderHeader.Discount > 0)
+                {
+                    options.Discounts = discountObj;
+                }
+
                 var service = new SessionService();
                 Session session = service.Create(options);
                 stripeRequestDto.StripeSessionUrl = session.Url;
@@ -77,6 +92,41 @@ namespace Personal.Shopping.Services.Order.Api.Controllers
             catch (Exception ex)
             {
                 return new ResponseDto()
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+        [HttpPost("validate-stripe-session")]
+        public async Task<ResponseDto> ValidateStripeSession([FromBody] int orderHeaderId)
+        {
+            try
+            {
+                var orderHeaderDto = await _orderService.GetOrderHeaderByIdAsync(orderHeaderId);
+
+                var service = new SessionService();
+                Session session = service.Get(orderHeaderDto.StripeSessionId);
+
+                var paymentIntentService = new PaymentIntentService();
+                PaymentIntent paymentIntent = paymentIntentService.Get(session.PaymentIntentId);
+
+                if (paymentIntent.Status == "succeeded")
+                {
+                    orderHeaderDto.PaymentIntentId = paymentIntent.Id;
+                    orderHeaderDto.Status = "Approved";
+                }
+
+                return new ResponseDto
+                {
+                    IsSuccess = true,
+                    Result = orderHeaderDto
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDto
                 {
                     IsSuccess = false,
                     Message = ex.Message

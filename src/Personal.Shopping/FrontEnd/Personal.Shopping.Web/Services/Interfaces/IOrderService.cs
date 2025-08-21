@@ -8,4 +8,5 @@ public interface IOrderService
 {
     Task<ResponseDto> CreateOrderAsync(CartDto cartDto);
     Task<ResponseDto> CreateStripeSessionAsync(StripeRequestDto stripeRequestDto);
+    Task<ResponseDto> ValidateStripeSessionAsync(int orderHeaderId);
 }

@@ -74,9 +74,20 @@ namespace Personal.Shopping.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet, HttpPost]
         public async Task<ActionResult> Confirmation(int orderId)
         {
+            ResponseDto responseDto = await _orderService.ValidateStripeSessionAsync(orderId);
+
+            if (responseDto.IsSuccess)
+            {
+                OrderHeaderDto orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(responseDto!.Result)!)!;
+                if (orderHeaderDto.Status == "Approved") 
+                {
+                    return View(orderId);
+                }
+            }
+
             return View(orderId);
         }
 
