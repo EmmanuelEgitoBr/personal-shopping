@@ -71,6 +71,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Order.Domain", "Services\Order\Personal.Shopping.Services.Order.Domain\Personal.Shopping.Services.Order.Domain.csproj", "{8C849D28-52A1-43C4-A60C-B38FEED18F44}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reward", "Reward", "{DAB753D2-1A79-46FE-9C10-BFF3D002FF03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Reward.Api", "Services\Reward\Personal.Shopping.Services.Reward.Api\Personal.Shopping.Services.Reward.Api.csproj", "{220FEBC0-0B47-40C3-8374-0ADF686348AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Reward.Domain", "Services\Reward\Personal.Shopping.Services.Reward.Domain\Personal.Shopping.Services.Reward.Domain.csproj", "{342AE806-B104-4BF5-9C7D-D8F9DC3D36A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Reward.Infra", "Services\Reward\Personal.Shopping.Services.Reward.Infra\Personal.Shopping.Services.Reward.Infra.csproj", "{A002FD0E-C056-4CE5-9E3B-C84EC089CBAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.Reward.Application", "Services\Reward\Personal.Shopping.Services.Reward.Application\Personal.Shopping.Services.Reward.Application.csproj", "{BC8721A9-2CA1-4CEF-8CD4-1E0365D57678}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +183,22 @@ Global
 		{8C849D28-52A1-43C4-A60C-B38FEED18F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C849D28-52A1-43C4-A60C-B38FEED18F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C849D28-52A1-43C4-A60C-B38FEED18F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220FEBC0-0B47-40C3-8374-0ADF686348AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220FEBC0-0B47-40C3-8374-0ADF686348AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220FEBC0-0B47-40C3-8374-0ADF686348AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220FEBC0-0B47-40C3-8374-0ADF686348AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342AE806-B104-4BF5-9C7D-D8F9DC3D36A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342AE806-B104-4BF5-9C7D-D8F9DC3D36A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342AE806-B104-4BF5-9C7D-D8F9DC3D36A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342AE806-B104-4BF5-9C7D-D8F9DC3D36A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A002FD0E-C056-4CE5-9E3B-C84EC089CBAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A002FD0E-C056-4CE5-9E3B-C84EC089CBAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A002FD0E-C056-4CE5-9E3B-C84EC089CBAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A002FD0E-C056-4CE5-9E3B-C84EC089CBAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC8721A9-2CA1-4CEF-8CD4-1E0365D57678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC8721A9-2CA1-4CEF-8CD4-1E0365D57678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC8721A9-2CA1-4CEF-8CD4-1E0365D57678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC8721A9-2CA1-4CEF-8CD4-1E0365D57678}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,5 +234,10 @@ Global
 		{155CCB36-0542-490B-BB9F-AEE337D0CBCB} = {4A3A6185-8926-4B21-A91A-C32706A410B2}
 		{6A09B221-00C2-4EB6-B445-8350F16B7297} = {4A3A6185-8926-4B21-A91A-C32706A410B2}
 		{8C849D28-52A1-43C4-A60C-B38FEED18F44} = {4A3A6185-8926-4B21-A91A-C32706A410B2}
+		{DAB753D2-1A79-46FE-9C10-BFF3D002FF03} = {F5D97BF2-FACA-40C4-A4D9-A84207D7F22B}
+		{220FEBC0-0B47-40C3-8374-0ADF686348AE} = {DAB753D2-1A79-46FE-9C10-BFF3D002FF03}
+		{342AE806-B104-4BF5-9C7D-D8F9DC3D36A0} = {DAB753D2-1A79-46FE-9C10-BFF3D002FF03}
+		{A002FD0E-C056-4CE5-9E3B-C84EC089CBAB} = {DAB753D2-1A79-46FE-9C10-BFF3D002FF03}
+		{BC8721A9-2CA1-4CEF-8CD4-1E0365D57678} = {DAB753D2-1A79-46FE-9C10-BFF3D002FF03}
 	EndGlobalSection
 EndGlobal

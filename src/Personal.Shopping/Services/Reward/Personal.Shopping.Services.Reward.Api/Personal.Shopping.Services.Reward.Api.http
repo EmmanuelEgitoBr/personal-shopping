@@ -1,0 +1,6 @@
+@Personal.Shopping.Services.Reward.Api_HostAddress = http://localhost:5032
+
+GET {{Personal.Shopping.Services.Reward.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
