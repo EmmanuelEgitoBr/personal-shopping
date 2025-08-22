@@ -1,32 +1,41 @@
 version: '3.8'
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.5.0
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - "2181:2181"
 
   kafka:
-    image: confluentinc/cp-kafka:7.5.0
-    depends_on:
-      - zookeeper
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: kafka
     ports:
       - "9092:9092"
+      - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
 
-  kafbat:
-    image: obsidiandynamics/kafbat:latest
+  kpow:
+    image: factorhouse/kpow-ce:latest
+    container_name: kpow
     ports:
-      - "8080:8080"
+      - "3000:3000"
     environment:
-      KAFKA_BROKERS: kafka:9092
+      BOOTSTRAP: "kafka:29092"   # Aponta para o Kafka interno
+      LICENSE_ID: 7534e081-f5a2-4562-804d-1e227497d3bc
+      LICENSE_CODE: KPOW_COMMUNITY
+      LICENSEE: Emmanuel Egito Oliveira Candeira Marinho
+      LICENSE_EXPIRY: 2026-08-22
+      LICENSE_SIGNATURE: 4561BBB324EBE28B627531DFD85EC9C9DCC57872C407E681C1DBC531D6E3AEF57C880E4BBA167C6CBF1266153CA28D5D35CC4A714926CC0B4101B5019CD4025592ABB6D8C55CB83FA9F32144C0554CF68C15260B9B4364A7C2A250F4E5AF22EAD74FB312982893863B5125135FFD9E051DAF5CF70AC518E64FEF43FDD277E3BF
     depends_on:
       - kafka
