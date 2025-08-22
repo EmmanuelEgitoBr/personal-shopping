@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Personal.Shopping.Integration.MessageBus;
 using Personal.Shopping.Integration.MessageBus.Interfaces;
+using Personal.Shopping.Integration.MessageBus.Services;
 using Personal.Shopping.Services.ShoppingCart.Application.Interfaces;
 using Personal.Shopping.Services.ShoppingCart.Application.Mappings;
 using Personal.Shopping.Services.ShoppingCart.Application.Services;
@@ -43,7 +43,7 @@ public static class WebApiBuilderExtensions
         builder.Services.AddScoped<ICartDetailRepository, CartDetailRepository>();
         builder.Services.AddScoped<ICartHeaderService, CartHeaderService>();
         builder.Services.AddScoped<ICartHeaderRepository, CartHeaderRepository>();
-        builder.Services.AddScoped<IMessageBus, MessageBus>();
+        builder.Services.AddScoped<IAwsMessageBus, AwsMessageBus>();
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)

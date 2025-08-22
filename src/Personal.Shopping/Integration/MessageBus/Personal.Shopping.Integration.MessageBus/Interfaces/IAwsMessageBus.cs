@@ -1,6 +1,6 @@
 ﻿namespace Personal.Shopping.Integration.MessageBus.Interfaces;
 
-public interface IMessageBus
+public interface IAwsMessageBus
 {
     Task PublishMessageAsync(object message, string topicQueueName);
 }

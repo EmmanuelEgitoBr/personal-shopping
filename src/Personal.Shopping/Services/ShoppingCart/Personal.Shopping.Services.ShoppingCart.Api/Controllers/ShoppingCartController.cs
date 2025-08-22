@@ -14,7 +14,7 @@ public class ShoppingCartController : ControllerBase
     private readonly ICartDetailService _cartDetailService;
     private readonly IProductService _productService;
     private readonly ICouponService _couponService;
-    private readonly IMessageBus _messageBus;
+    private readonly IAwsMessageBus _messageBus;
     private readonly IConfiguration _configuration;
     private ResponseDto _response;
 
@@ -22,7 +22,7 @@ public class ShoppingCartController : ControllerBase
         ICartDetailService cartDetailService,
         IProductService productService,
         ICouponService couponService,
-        IMessageBus messageBus,
+        IAwsMessageBus messageBus,
         IConfiguration configuration)
     {
         _response = new ResponseDto();

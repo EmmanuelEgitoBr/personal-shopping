@@ -5,14 +5,14 @@ using Amazon.SQS.Model;
 using Newtonsoft.Json;
 using Personal.Shopping.Integration.MessageBus.Interfaces;
 
-namespace Personal.Shopping.Integration.MessageBus;
+namespace Personal.Shopping.Integration.MessageBus.Services;
 
-public class MessageBus : IMessageBus
+public class AwsMessageBus : IAwsMessageBus
 {
     private readonly IAmazonSQS _sqsClient;
     private readonly IAmazonSimpleNotificationService _snsClient;
 
-    public MessageBus(IAmazonSQS sqsClient, IAmazonSimpleNotificationService snsClient)
+    public AwsMessageBus(IAmazonSQS sqsClient, IAmazonSimpleNotificationService snsClient)
     {
         _sqsClient = sqsClient;
         _snsClient = snsClient;

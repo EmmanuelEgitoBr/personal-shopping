@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Personal.Shopping.Integration.MessageBus.Interfaces;
+using Personal.Shopping.Integration.MessageBus.Services;
 using Personal.Shopping.Services.Order.Application.Interfaces;
 using Personal.Shopping.Services.Order.Application.Mappings;
 using Personal.Shopping.Services.Order.Application.Services;
@@ -25,6 +27,8 @@ public static class WebApiBuilderExtensions
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
         builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        builder.Services.AddScoped(typeof(IKafkaProducerService<>), typeof(KafkaProducerService<>));
+
     }
 
     public static void AddMapperConfiguration(this WebApplicationBuilder builder)

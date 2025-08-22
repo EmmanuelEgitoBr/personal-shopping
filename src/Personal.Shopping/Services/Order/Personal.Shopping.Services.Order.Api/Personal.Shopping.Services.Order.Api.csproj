@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Integration\MessageBus\Personal.Shopping.Integration.MessageBus\Personal.Shopping.Integration.MessageBus.csproj" />
     <ProjectReference Include="..\Personal.Shopping.Services.Order.Application\Personal.Shopping.Services.Order.Application.csproj" />
     <ProjectReference Include="..\Personal.Shopping.Services.Order.Domain\Personal.Shopping.Services.Order.Domain.csproj" />
     <ProjectReference Include="..\Personal.Shopping.Services.Order.Infra\Personal.Shopping.Services.Order.Infra.csproj" />

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Personal.Shopping.Integration.MessageBus.Interfaces;
 using Personal.Shopping.Services.Order.Application.Dtos;
 using Personal.Shopping.Services.Order.Application.Dtos.Cart;
+using Personal.Shopping.Services.Order.Application.Dtos.Reward;
 using Personal.Shopping.Services.Order.Application.Dtos.Stripe;
 using Personal.Shopping.Services.Order.Application.Interfaces;
 using Stripe;
@@ -15,10 +17,13 @@ namespace Personal.Shopping.Services.Order.Api.Controllers
     public class OrdersController : ControllerBase
     {
         private IOrderService _orderService;
+        private readonly IKafkaProducerService<RewardsDto> _kafkaProducerService;
 
-        public OrdersController(IOrderService orderService)
+        public OrdersController(IOrderService orderService,
+            IKafkaProducerService<RewardsDto> kafkaProducerService)
         {
             _orderService = orderService;
+            _kafkaProducerService = kafkaProducerService;
         }
 
         //[Authorize]
@@ -116,6 +121,16 @@ namespace Personal.Shopping.Services.Order.Api.Controllers
                 {
                     orderHeaderDto.PaymentIntentId = paymentIntent.Id;
                     orderHeaderDto.Status = "Approved";
+                    await _orderService.UpdateOrderHeaderAsync(orderHeaderDto);
+
+                    RewardsDto rewardsDto = new()
+                    {
+                        OrderId = orderHeaderId,
+                        RewardsActivity = Convert.ToInt32(orderHeaderDto.OrderTotal),
+                        UserId = orderHeaderDto.UserId
+                    };
+
+                    await _kafkaProducerService.PublishOrderAsync(rewardsDto);
                 }
 
                 return new ResponseDto
