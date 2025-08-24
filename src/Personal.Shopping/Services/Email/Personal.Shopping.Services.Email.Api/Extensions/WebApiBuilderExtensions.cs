@@ -3,6 +3,8 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Personal.Shopping.Services.Email.Application.Interfaces;
 using Personal.Shopping.Services.Email.Application.Mappings;
+using Personal.Shopping.Services.Email.Application.Models;
+using Personal.Shopping.Services.Email.Application.Services;
 using Personal.Shopping.Services.Email.Application.Services.Messaging;
 using Personal.Shopping.Services.Email.Domain.Interfaces;
 using Personal.Shopping.Services.Email.Infra.Context;
@@ -33,6 +35,11 @@ namespace Personal.Shopping.Services.Email.Api.Extensions
         public static void AddApplicationConfig(this WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton<IServiceBusConsumer, ServiceBusConsumer>();
+
+            builder.Services.Configure<EmailSettings>(
+                builder.Configuration.GetSection("Smtp"));
+
+            builder.Services.AddScoped<IEmailService, EmailService>();
         }
 
         public static void AddAwsConfig(this WebApplicationBuilder builder)
