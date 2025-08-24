@@ -31,7 +31,7 @@ namespace Personal.Shopping.Services.Reward.Worker
             };
 
             using var consumer = new ConsumerBuilder<Null, string>(consumerConfig).Build();
-            consumer.Subscribe("orders");
+            consumer.Subscribe("ordersCreated");
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -41,7 +41,7 @@ namespace Personal.Shopping.Services.Reward.Worker
                     var order = JsonSerializer.Deserialize<RewardsDto>(result.Message.Value);
                     
                     var message = EmailBuilder.BuildEmailBody(order!);
-                    var sendEmail = await _apiService.ProcessOrderAsync(message);
+                    var sendEmail = await _apiService.SendEmailAsync(message);
 
                     _logger.LogInformation($"[RewardApi] Pedido recebido: {order?.OrderId} - Cliente: {order?.OrderId}");
                 }

@@ -5,6 +5,6 @@ namespace Personal.Shopping.Services.Reward.Worker.Services;
 
 public interface IApiService
 {
-    [Post("/email/send-email")]
-    Task<ApiResponse<string>> ProcessOrderAsync([Body] KafkaMessageEnvelope message);
+    [Post("/api/email/send-email")]
+    Task<ApiResponse<KafkaMessageEnvelope>> SendEmailAsync([Body] KafkaMessageEnvelope message);
 }

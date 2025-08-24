@@ -9,7 +9,7 @@ builder.Services.AddHostedService<Worker>();
 builder.Services.AddRefitClient<IApiService>()
     .ConfigureHttpClient(c =>
     {
-        c.BaseAddress = new Uri("http://localhost:5000"); // sua API
+        c.BaseAddress = new Uri("https://localhost:7119"); // sua API
     });
 
 var host = builder.Build();

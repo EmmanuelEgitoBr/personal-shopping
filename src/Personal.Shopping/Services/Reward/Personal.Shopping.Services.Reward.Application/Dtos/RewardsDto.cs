@@ -3,8 +3,8 @@
 public class RewardsDto
 {
     public int Id { get; set; }
-    public string UserId { get; set; } = Guid.NewGuid().ToString();
-    public DateTime RewardsDate { get; set; }
+    public string UserId { get; set; } = string.Empty;
+    public DateTime RewardsDate { get; set; } = DateTime.Now;
     public int RewardsActivity { get; set; }
     public int OrderId { get; set; }
 }

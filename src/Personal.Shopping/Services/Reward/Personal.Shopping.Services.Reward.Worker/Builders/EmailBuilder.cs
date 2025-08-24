@@ -9,7 +9,7 @@ public static class EmailBuilder
         var subject = $"Novo pedido #{rewards.OrderId}";
         var body = $"Cliente: {rewards.UserId}\n" +
                    $"Valor: {rewards.RewardsActivity}\n" +
-                   $"Data: {rewards.RewardsDate}";
+                   $"Data: {DateTime.Now}";
 
         var message = new KafkaMessageEnvelope()
         {
