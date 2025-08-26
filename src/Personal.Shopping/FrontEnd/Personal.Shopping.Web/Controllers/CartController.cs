@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Personal.Shopping.Web.Models;
+using Personal.Shopping.Web.Models.Enums;
 using Personal.Shopping.Web.Models.Order;
 using Personal.Shopping.Web.Models.ShoppingCart;
 using Personal.Shopping.Web.Models.Stripe;
@@ -82,7 +83,7 @@ namespace Personal.Shopping.Web.Controllers
             if (responseDto.IsSuccess)
             {
                 OrderHeaderDto orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(responseDto!.Result)!)!;
-                if (orderHeaderDto.Status == "Approved") 
+                if (orderHeaderDto.Status == OrderStatus.APPROVED) 
                 {
                     return View(orderId);
                 }

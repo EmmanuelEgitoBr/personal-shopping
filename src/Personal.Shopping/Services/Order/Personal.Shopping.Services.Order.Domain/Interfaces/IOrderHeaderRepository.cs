@@ -5,6 +5,8 @@ namespace Personal.Shopping.Services.Order.Domain.Interfaces;
 public interface IOrderHeaderRepository
 {
     Task<OrderHeader> GetOrderHeaderByIdAsync(int orderHeaderId);
+    Task<IEnumerable<OrderHeader>> GetAllOrderHeadersAsync();
+    Task<IEnumerable<OrderHeader>> GetOrderHeadersByUserIdAsync(string userId);
     Task<OrderHeader> CreateCartHeader(OrderHeader cartHeader);
     Task UpdateOrderHeaderAsync(OrderHeader orderHeader);
 }

@@ -16,7 +16,29 @@ public class OrderHeaderRepository : IOrderHeaderRepository
 
     public async Task<OrderHeader> GetOrderHeaderByIdAsync(int orderHeaderId)
     {
-        return await _db.OrderHeaders.AsNoTracking().FirstAsync(o => o.OrderHeaderId == orderHeaderId);
+        return await _db.OrderHeaders
+            .AsNoTracking()
+            .Include(o => o.OrderDetails)
+            .FirstAsync(o => o.OrderHeaderId == orderHeaderId);
+    }
+
+    public async Task<IEnumerable<OrderHeader>> GetAllOrderHeadersAsync()
+    {
+        return await _db.OrderHeaders
+            .AsNoTracking()
+            .Include(o => o.OrderDetails)
+            .OrderByDescending(o => o.OrderHeaderId)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<OrderHeader>> GetOrderHeadersByUserIdAsync(string userId)
+    {
+        return await _db.OrderHeaders
+            .AsNoTracking()
+            .Include(o => o.OrderDetails)
+            .Where(o => o.UserId == userId)
+            .OrderByDescending(o => o.OrderHeaderId)
+            .ToListAsync();
     }
 
     public async Task<OrderHeader> CreateCartHeader(OrderHeader orderHeader)
