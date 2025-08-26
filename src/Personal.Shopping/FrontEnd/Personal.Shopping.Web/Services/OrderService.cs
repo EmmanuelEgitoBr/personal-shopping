@@ -5,6 +5,7 @@ using Personal.Shopping.Web.Services.Interfaces.Base;
 using Personal.Shopping.Web.Settings;
 using Personal.Shopping.Web.Models.ShoppingCart;
 using Personal.Shopping.Web.Models.Stripe;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Personal.Shopping.Web.Services;
 
@@ -35,6 +36,46 @@ public class OrderService : IOrderService
             ApiType = ApiType.POST,
             Content = stripeRequestDto,
             Url = AppSettings.OrderBaseUrl + $"/api/orders/create-stripe-session"
+        };
+        return await _baseService.SendAsync(request!)!;
+    }
+
+    public async Task<ResponseDto> GetAllOrders()
+    {
+        var request = new RequestDto()
+        {
+            ApiType = ApiType.GET,
+            Url = AppSettings.OrderBaseUrl + $"/api/orders/get-all-orders"
+        };
+        return await _baseService.SendAsync(request!)!;
+    }
+
+    public async Task<ResponseDto> GetOrderByOrderHeaderId(int orderHeaderId)
+    {
+        var request = new RequestDto()
+        {
+            ApiType = ApiType.GET,
+            Url = AppSettings.OrderBaseUrl + $"/api/orders/get-order/{orderHeaderId}"
+        };
+        return await _baseService.SendAsync(request!)!;
+    }
+
+    public async Task<ResponseDto> GetOrdersByUserId(string userId)
+    {
+        var request = new RequestDto()
+        {
+            ApiType = ApiType.GET,
+            Url = AppSettings.OrderBaseUrl + $"/api/orders/get-orders/{userId}"
+        };
+        return await _baseService.SendAsync(request!)!;
+    }
+
+    public async Task<ResponseDto> UpdateOrderStatus([FromQuery] int newOrderStatus, int orderHeaderId)
+    {
+        var request = new RequestDto()
+        {
+            ApiType = ApiType.PUT,
+            Url = AppSettings.OrderBaseUrl + $"/api/orders/{orderHeaderId}/update-status?newOrderStatus={newOrderStatus}"
         };
         return await _baseService.SendAsync(request!)!;
     }
