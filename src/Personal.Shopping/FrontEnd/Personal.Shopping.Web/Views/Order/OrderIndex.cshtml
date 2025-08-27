@@ -9,13 +9,13 @@
         <table id="tblData" class="table table-bordered table-striped pt-3" style="width:100%" >
             <thead>
                 <tr>
-                    <th>N° pedido</th>
-                    <th>E-mail</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Status</th>
-                    <th>Total</th>
-                    <th></th>
+                    <th class="text-center">N° pedido</th>
+                    <th class ="text-center">E-mail</th>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">Telefone</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center"></th>
                 </tr>
             </thead>
 
@@ -23,6 +23,39 @@
     </div>
 </div>
 
-@section Scripts{
-    <script src="~/js/order.js"></script>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tblData').DataTable({
+                ajax: {
+                    url: "/Order/GetAllOrders",
+                    type: "GET",
+                    dataSrc: "data"
+                },
+                columns: [
+                    { data: "orderHeaderId", className: "text-center" },
+                    { data: "email", className: "text-center" },
+                    { 
+                        data: null, 
+                        className: "text-center",
+                        render: function (data) {
+                            return `${data.firstName || ''} ${data.lastName || ''}`;
+                        }
+                    },
+                    { data: "phone", className: "text-center" },
+                    { data: "status", className: "text-center" },
+                    { data: "orderTotal", className: "text-center" },
+                    { 
+                        data: null,
+                        render: function (data) {
+                            return "";
+                        }
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json"
+                }
+            });
+        });
+    </script>
 }
