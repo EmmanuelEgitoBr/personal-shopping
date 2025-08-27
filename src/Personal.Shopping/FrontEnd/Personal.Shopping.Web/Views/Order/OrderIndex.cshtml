@@ -44,11 +44,20 @@
                     },
                     { data: "phone", className: "text-center" },
                     { data: "status", className: "text-center" },
-                    { data: "orderTotal", className: "text-center" },
                     { 
-                        data: null,
+                        data: "orderTotal", 
+                        className: "text-center",
+                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ ')
+                    },
+                    {
+                        data: "orderHeaderId",
+                        className: "text-center",
                         render: function (data) {
-                            return "";
+                            return `<div class="w-75 btn-group" role="group">
+                            <a href="/Order/OrderDetail?orderId=${data}" class="btn btn-primary mx-2" >
+                                <i class="bi bi-pencil-square" ></i>
+                            </a>
+                            </div>`;
                         }
                     }
                 ],

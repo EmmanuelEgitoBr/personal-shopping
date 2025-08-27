@@ -4,6 +4,7 @@ using Personal.Shopping.Web.Configurations.Resources;
 using Personal.Shopping.Web.Models;
 using Personal.Shopping.Web.Models.Order;
 using Personal.Shopping.Web.Services.Interfaces;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Personal.Shopping.Web.Controllers
@@ -45,6 +46,23 @@ namespace Personal.Shopping.Web.Controllers
             }
 
             return Json(new { data = list });
+        }
+
+        public async Task<IActionResult> OrderDetail(int orderId)
+        {
+            OrderHeaderDto orderHeaderDto = new();
+            string userId = User.Claims!
+                    .Where(u => u.Type == JwtRegisteredClaimNames.Sub)!
+                    .FirstOrDefault()!.Value;
+
+            var response = await _orderService.GetOrderByOrderHeaderId(orderId);
+
+            if (response.IsSuccess)
+            {
+                orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response!.Result!)!)!;
+            }
+
+            return View(orderHeaderDto);
         }
     }
 }
