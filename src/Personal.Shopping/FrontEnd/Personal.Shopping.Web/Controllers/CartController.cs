@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Personal.Shopping.Web.Configurations.Resources;
 using Personal.Shopping.Web.Models;
 using Personal.Shopping.Web.Models.Enums;
 using Personal.Shopping.Web.Models.Order;
@@ -83,7 +84,7 @@ namespace Personal.Shopping.Web.Controllers
             if (responseDto.IsSuccess)
             {
                 OrderHeaderDto orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(responseDto!.Result)!)!;
-                if (orderHeaderDto.Status == OrderStatus.APPROVED) 
+                if (orderHeaderDto.Status == StatusTypes.Status_Approved) 
                 {
                     return View(orderId);
                 }

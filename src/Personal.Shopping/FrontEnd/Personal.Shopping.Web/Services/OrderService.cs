@@ -70,7 +70,7 @@ public class OrderService : IOrderService
         return await _baseService.SendAsync(request!)!;
     }
 
-    public async Task<ResponseDto> UpdateOrderStatus([FromQuery] int newOrderStatus, int orderHeaderId)
+    public async Task<ResponseDto> UpdateOrderStatus([FromQuery] string newOrderStatus, int orderHeaderId)
     {
         var request = new RequestDto()
         {

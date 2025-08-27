@@ -13,5 +13,5 @@ public interface IOrderService
     Task<ResponseDto> GetAllOrders();
     Task<ResponseDto> GetOrdersByUserId(string userId);
     Task<ResponseDto> GetOrderByOrderHeaderId(int orderHeaderId);
-    Task<ResponseDto> UpdateOrderStatus([FromQuery] int newOrderStatus, int orderHeaderId);
+    Task<ResponseDto> UpdateOrderStatus([FromQuery] string newOrderStatus, int orderHeaderId);
 }

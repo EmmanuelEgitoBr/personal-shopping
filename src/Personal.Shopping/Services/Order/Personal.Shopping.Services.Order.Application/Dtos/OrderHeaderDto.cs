@@ -1,6 +1,4 @@
-﻿using Personal.Shopping.Services.Order.Domain.Enums;
-
-namespace Personal.Shopping.Services.Order.Application.Dtos;
+﻿namespace Personal.Shopping.Services.Order.Application.Dtos;
 
 public class OrderHeaderDto
 {
@@ -14,7 +12,7 @@ public class OrderHeaderDto
     public string? Email { get; set; }
     public string? Phone { get; set; }
     public DateTime OrderTime { get; set; }
-    public OrderStatus Status { get; set; }
+    public string? Status { get; set; }
     public string? PaymentIntentId { get; set; }
     public string? StripeSessionId { get; set; }
     public IEnumerable<OrderDetailDto>? OrderDetails { get; set; }

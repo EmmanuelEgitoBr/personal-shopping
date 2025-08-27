@@ -5,8 +5,8 @@ using Personal.Shopping.Services.Order.Application.Dtos.Cart;
 using Personal.Shopping.Services.Order.Application.Dtos.Reward;
 using Personal.Shopping.Services.Order.Application.Dtos.Stripe;
 using Personal.Shopping.Services.Order.Application.Interfaces;
+using Personal.Shopping.Services.Order.Application.Utils.Constants;
 using Personal.Shopping.Services.Order.Domain.Entity;
-using Personal.Shopping.Services.Order.Domain.Enums;
 using Personal.Shopping.Services.Order.Domain.Interfaces;
 using Stripe;
 using Stripe.Checkout;
@@ -101,7 +101,7 @@ public class OrderService : IOrderService
         {
             OrderHeaderDto orderHeaderDto = _mapper.Map<OrderHeaderDto>(cartDto.CartHeader);
             orderHeaderDto.OrderTime = DateTime.Now;
-            orderHeaderDto.Status = OrderStatus.AWAITING_PAYMENT;
+            orderHeaderDto.Status = StatusTypes.Status_Pending;
             orderHeaderDto.OrderDetails = _mapper.Map<IEnumerable<OrderDetailDto>>(cartDto.CartDetails);
             
             OrderHeader orderHeaderEntity = _mapper.Map<OrderHeader>(orderHeaderDto);
@@ -199,7 +199,7 @@ public class OrderService : IOrderService
             if (paymentIntent.Status == "succeeded")
             {
                 orderHeader.PaymentIntentId = paymentIntent.Id;
-                orderHeader.Status = OrderStatus.APPROVED;
+                orderHeader.Status = StatusTypes.Status_Approved;
                 await _orderHeaderRepository.UpdateOrderHeaderAsync(orderHeader);
 
                 RewardsDto rewardsDto = new()
@@ -224,15 +224,15 @@ public class OrderService : IOrderService
         return _response;
     }
 
-    public async Task<ResponseDto> UpdateOrderStatusAsync(int newOrderStatus, int orderHeaderId)
+    public async Task<ResponseDto> UpdateOrderStatusAsync(string newOrderStatus, int orderHeaderId)
     {
         try
         {
             var orderHeader = await _orderHeaderRepository.GetOrderHeaderByIdAsync(orderHeaderId);
             //var orderHeaderDto = _mapper.Map<OrderHeaderDto>(orderHeader);
-            orderHeader.Status = (OrderStatus)newOrderStatus;
+            orderHeader.Status = newOrderStatus;
 
-            if (newOrderStatus == OrderStatus.CANCELED.GetHashCode())
+            if (newOrderStatus == StatusTypes.Status_Cancelled)
             {
                 var options = new RefundCreateOptions
                 {

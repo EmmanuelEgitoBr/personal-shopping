@@ -1,5 +1,4 @@
-﻿using Personal.Shopping.Services.Order.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Personal.Shopping.Services.Order.Domain.Entity;
 
@@ -16,7 +15,7 @@ public class OrderHeader
     public string? Email { get; set; }
     public string? Phone { get; set; }
     public DateTime OrderTime { get; set; }
-    public OrderStatus Status { get; set; }
+    public string? Status { get; set; }
     public string? PaymentIntentId { get; set; }
     public string? StripeSessionId { get; set; }
     public IEnumerable<OrderDetail>? OrderDetails { get; set; }

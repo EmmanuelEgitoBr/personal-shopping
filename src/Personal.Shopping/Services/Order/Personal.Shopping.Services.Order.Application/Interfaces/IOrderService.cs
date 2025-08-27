@@ -13,5 +13,5 @@ public interface IOrderService
     Task UpdateOrderHeaderAsync(OrderHeaderDto orderHeaderDto);
     Task<ResponseDto> CreateStripeSessionAsync(StripeRequestDto stripeRequestDto);
     Task<ResponseDto> ValidateStripeSessionAsync(int orderHeaderId);
-    Task<ResponseDto> UpdateOrderStatusAsync(int newOrderStatus, int orderHeaderId);
+    Task<ResponseDto> UpdateOrderStatusAsync(string newOrderStatus, int orderHeaderId);
 }

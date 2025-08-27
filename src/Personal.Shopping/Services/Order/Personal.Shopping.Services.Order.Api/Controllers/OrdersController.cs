@@ -56,7 +56,7 @@ namespace Personal.Shopping.Services.Order.Api.Controllers
         }
 
         [HttpPut("{orderHeaderId:int}/update-status")]
-        public async Task<ResponseDto> UpdateOrderStatus([FromQuery]int newOrderStatus, int orderHeaderId)
+        public async Task<ResponseDto> UpdateOrderStatus([FromQuery]string newOrderStatus, int orderHeaderId)
         {
             return await _orderService.UpdateOrderStatusAsync(newOrderStatus, orderHeaderId);
         }
