@@ -4,7 +4,7 @@
 
 <form method="post">
     <br/>
-    <input asp-for="OrderHeaderId" hidden />
+    <input asp-for="OrderHeaderId" name="orderHeaderId" hidden />
     <div class="container">
         <div class="card">
             <div class="card-header bg-dark text-light ml-0">
@@ -97,8 +97,12 @@
                                     </div>
                                 </li>
                             </ul>
-                            <button type="submit" class="btn btn-success form-control my-1" >Pronto pra retirada</button>
-                            <button type="submit" class="btn btn-danger form-control my-1" >Cancelar Pedido</button>
+                            @if(Model.Status == StatusTypes.Status_Pending || 
+                                Model.Status == StatusTypes.Status_Approved ||
+                                Model.Status == StatusTypes.Status_ReadyForSend)
+                            {
+                                <button asp-action="CancelOrder" type="submit" class="btn btn-danger form-control my-1">Cancelar Pedido</button>
+                            }
                         </div>
                     </div>
                 </div>

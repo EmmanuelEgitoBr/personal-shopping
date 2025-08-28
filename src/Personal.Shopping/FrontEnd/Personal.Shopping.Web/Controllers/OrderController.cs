@@ -64,5 +64,21 @@ namespace Personal.Shopping.Web.Controllers
 
             return View(orderHeaderDto);
         }
+
+        [HttpPost("CancelOrder")]
+        public async Task<IActionResult> CancelOrder(int orderHeaderId)
+        {
+            var response = await _orderService.UpdateOrderStatus(StatusTypes.Status_Cancelled, orderHeaderId);
+
+            if (response.IsSuccess)
+            {
+                TempData["Message"] = "Solicitação de cancelamento feito com sucesso";
+                TempData["MessageType"] = "success";
+
+                return RedirectToAction(nameof(OrderIndex));
+            }
+
+            return View();
+        }
     }
 }

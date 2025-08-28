@@ -234,15 +234,17 @@ public class OrderService : IOrderService
 
             if (newOrderStatus == StatusTypes.Status_Cancelled)
             {
-                var options = new RefundCreateOptions
+                if(!string.IsNullOrEmpty(orderHeader.PaymentIntentId))
                 {
-                    Reason = RefundReasons.RequestedByCustomer,
-                    PaymentIntent = orderHeader.PaymentIntentId
-                };
+                    var options = new RefundCreateOptions
+                    {
+                        Reason = RefundReasons.RequestedByCustomer,
+                        PaymentIntent = orderHeader.PaymentIntentId
+                    };
 
-                var service = new RefundService();
-                Refund refund = service.Create(options);
-
+                    var service = new RefundService();
+                    Refund refund = service.Create(options);
+                }
             }
             await _orderHeaderRepository.UpdateOrderHeaderAsync(orderHeader);
 
