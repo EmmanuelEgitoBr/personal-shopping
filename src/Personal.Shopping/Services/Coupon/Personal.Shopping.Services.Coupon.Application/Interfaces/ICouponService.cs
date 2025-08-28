@@ -10,5 +10,7 @@ namespace Personal.Shopping.Services.Coupon.Application.Interfaces
         Task<ResponseDto> GetCuponByCodeAsync(string couponCode);
         Task<ResponseDto> GetCuponByIdAsync(int couponId);
         Task<ResponseDto> UpdateCouponAsync(CouponDto coupon);
+        ResponseDto CreateCouponInStripe(CouponDto couponDto);
+        ResponseDto DeleteCouponInStripe(CouponDto couponDto);
     }
 }

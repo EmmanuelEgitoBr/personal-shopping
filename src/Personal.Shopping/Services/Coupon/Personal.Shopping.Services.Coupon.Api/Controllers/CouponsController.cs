@@ -47,16 +47,6 @@ public class CouponsController : ControllerBase
     {
         var result = await _couponService.CreateCouponAsync(couponDto);
 
-        var options = new CouponCreateOptions
-        {
-            AmountOff = (long)(couponDto.DiscountAmount * 100),
-            Name = couponDto.CouponCode,
-            Currency = "brl",
-            Id = couponDto.CouponCode
-        };
-        var service = new CouponService();
-        Stripe.Coupon coupon = service.Create(options);
-
         return Ok(result);
     }
 
@@ -78,9 +68,6 @@ public class CouponsController : ControllerBase
         var couponDto = (CouponDto)result.Result!;
 
         await _couponService.DeleteCouponAsync(id);
-
-        var service = new CouponService();
-        service.Delete(couponDto.CouponCode);
 
         return Ok();
     }

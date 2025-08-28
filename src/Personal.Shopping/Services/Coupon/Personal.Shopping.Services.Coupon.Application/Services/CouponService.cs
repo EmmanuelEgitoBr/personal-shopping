@@ -2,6 +2,7 @@
 using Personal.Shopping.Services.Coupon.Application.Dtos;
 using Personal.Shopping.Services.Coupon.Application.Interfaces;
 using Personal.Shopping.Services.Coupon.Domain.Interfaces;
+using Stripe;
 
 namespace Personal.Shopping.Services.Coupon.Application.Services;
 
@@ -123,4 +124,61 @@ public class CouponService : ICouponService
     {
         await _couponRepository.DeleteCoupon(id);
     }
+
+    public ResponseDto CreateCouponInStripe(CouponDto couponDto)
+    {
+        try
+        {
+            var options = new CouponCreateOptions
+            {
+                AmountOff = (long)(couponDto.DiscountAmount * 100),
+                Name = couponDto.CouponCode,
+                Currency = "brl",
+                Id = couponDto.CouponId.ToString()
+            };
+            var service = new Stripe.CouponService();
+            Stripe.Coupon coupon = service.Create(options);
+
+            return new ResponseDto()
+            {
+                IsSuccess = true,
+                Result = "Cupom criado com sucesso no Stripe"
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDto()
+            {
+                IsSuccess = false,
+                Message = $"Erro ao criar cupom no Stripe: {ex.Message}"
+            };
+        }
+    }
+
+    public ResponseDto DeleteCouponInStripe(CouponDto couponDto)
+    {
+        try
+        {
+            var service = new Stripe.CouponService();
+
+            var stripeCoupon = service.Get(couponDto.CouponCode);
+
+            if (stripeCoupon != null) service.Delete(couponDto.CouponCode);
+
+            return new ResponseDto()
+            {
+                IsSuccess = true,
+                Result = "Cupom excluído com sucesso no Stripe"
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDto()
+            {
+                IsSuccess = false,
+                Message = $"Erro ao excluir cupom no Stripe: {ex.Message}"
+            };
+        }
+    }
+
 }
