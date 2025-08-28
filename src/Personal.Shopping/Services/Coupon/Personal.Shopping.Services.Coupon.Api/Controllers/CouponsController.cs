@@ -17,7 +17,7 @@ public class CouponsController : ControllerBase
         _couponService = couponService;
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet]
     public async Task<ActionResult> GetAllCoupons()
     {

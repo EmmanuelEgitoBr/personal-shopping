@@ -21,6 +21,10 @@ namespace Personal.Shopping.Manager.Web.Extensions
             builder.Services
                 .AddRefitClient<IAuthService>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Auth"]!));
+
+            builder.Services
+                .AddRefitClient<ICouponService>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Coupon"]!));
         }
 
         public static void AddAppServices(this WebApplicationBuilder builder)
