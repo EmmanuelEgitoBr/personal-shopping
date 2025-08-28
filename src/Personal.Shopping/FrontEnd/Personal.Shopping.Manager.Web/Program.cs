@@ -1,7 +1,12 @@
+using Personal.Shopping.Manager.Web.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.AddRefitServices(builder.Configuration);
+builder.AddAppServices();
+builder.AddAuthConfiguration();
 
 var app = builder.Build();
 
