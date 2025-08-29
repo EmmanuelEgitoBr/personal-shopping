@@ -23,18 +23,18 @@ namespace Personal.Shopping.Services.Product.Api.Controllers
             return result;
         }
 
-        [HttpGet("get-by-id/{id}")]
-        public async Task<ActionResult> GetProductById(int id)
+        [HttpGet("get-by-id/{productId}")]
+        public async Task<ActionResult> GetProductById(int productId)
         {
-            var result = await _productService.GetProductByIdAsync(id);
+            var result = await _productService.GetProductByIdAsync(productId);
 
             return Ok(result);
         }
 
-        [HttpGet("get-by-name/{name}")]
-        public async Task<ActionResult> GetProductByName(string name)
+        [HttpGet("get-by-name/{productName}")]
+        public async Task<ActionResult> GetProductByName(string productName)
         {
-            var result = await _productService.GetProductByNameAsync(name.ToUpper());
+            var result = await _productService.GetProductByNameAsync(productName.ToUpper());
 
             return Ok(result);
         }

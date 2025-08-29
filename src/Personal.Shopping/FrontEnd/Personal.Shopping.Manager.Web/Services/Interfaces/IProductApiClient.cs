@@ -4,7 +4,7 @@ using Refit;
 
 namespace Personal.Shopping.Manager.Web.Services.Interfaces;
 
-public interface IProductService
+public interface IProductApiClient
 {
     [Get("/api/products")]
     Task<ResponseDto> GetAllProductsAsync();
@@ -16,10 +16,10 @@ public interface IProductService
     Task<ResponseDto> GetProductByIdAsync(int productId);
 
     [Post("/api/products")]
-    Task<ResponseDto> CreateProductAsync([Body] ProductDto product);
+    Task<ResponseDto> CreateProductAsync([Body] ProductDto productDto);
 
     [Put("/api/products")]
-    Task<ResponseDto> UpdateProductAsync([Body] ProductDto product);
+    Task<ResponseDto> UpdateProductAsync([Body] ProductDto productDto);
 
     [Delete("/api/products/delete/{id}")]
     Task<ResponseDto> DeleteProductAsync(int id);

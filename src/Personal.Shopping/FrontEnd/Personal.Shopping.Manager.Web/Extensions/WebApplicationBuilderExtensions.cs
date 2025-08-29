@@ -11,11 +11,11 @@ namespace Personal.Shopping.Manager.Web.Extensions
             IConfiguration configuration)
         {
             builder.Services
-                .AddRefitClient<IProductService>()
+                .AddRefitClient<IProductApiClient>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Product"]!));
 
             builder.Services
-                .AddRefitClient<ICategoryService>()
+                .AddRefitClient<ICategoryApiClient>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Product"]!));
 
             builder.Services
@@ -23,7 +23,7 @@ namespace Personal.Shopping.Manager.Web.Extensions
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Auth"]!));
 
             builder.Services
-                .AddRefitClient<ICouponService>()
+                .AddRefitClient<ICouponApiClient>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Coupon"]!));
         }
 

@@ -4,7 +4,7 @@ using Refit;
 
 namespace Personal.Shopping.Manager.Web.Services.Interfaces;
 
-public interface ICouponService
+public interface ICouponApiClient
 {
     [Get("/api/coupon")]
     Task<ResponseDto> GetAllCuponsAsync();

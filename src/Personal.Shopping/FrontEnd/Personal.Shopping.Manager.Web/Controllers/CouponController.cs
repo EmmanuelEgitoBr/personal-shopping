@@ -10,9 +10,9 @@ namespace Personal.Shopping.Manager.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class CouponController : Controller
     {
-        private readonly ICouponService _couponService;
+        private readonly ICouponApiClient _couponService;
 
-        public CouponController(ICouponService couponService)
+        public CouponController(ICouponApiClient couponService)
         {
             _couponService = couponService;
         }

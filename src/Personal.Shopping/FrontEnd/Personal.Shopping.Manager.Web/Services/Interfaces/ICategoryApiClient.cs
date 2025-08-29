@@ -4,12 +4,12 @@ using Refit;
 
 namespace Personal.Shopping.Manager.Web.Services.Interfaces;
 
-public interface ICategoryService
+public interface ICategoryApiClient
 {
     [Get("/api/categories")]
     Task<ResponseDto> GetAllCategoriesAsync();
 
-    [Get("get-by-id/{id}")]
+    [Get("/api/categories/get-by-id/{id}")]
     Task<ResponseDto> GetCategoryByIdAsync(int id);
 
     [Post("/api/categories")]
@@ -18,6 +18,6 @@ public interface ICategoryService
     [Put("/api/categories")]
     Task<ResponseDto> UpdateCategoryAsync([Body] CategoryDto category);
 
-    [Delete("delete/{id}")]
+    [Delete("/api/categories/delete/{id}")]
     Task<ResponseDto> DeleteCategoryAsync(int id);
 }

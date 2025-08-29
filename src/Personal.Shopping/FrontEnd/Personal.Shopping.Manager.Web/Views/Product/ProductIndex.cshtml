@@ -1,1 +1,85 @@
-﻿<h3>Em breve a página está pronta! Aguarde!</h3>
+﻿@using Personal.Shopping.Manager.Web.Models.Product
+@model IEnumerable<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-primary bg-gradient text-white d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Produtos</h3>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Criar Produto
+        </a>
+    </div>
+
+    <div class="card-body">
+        <!-- Filtros -->
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <input id="filterName" type="text" class="form-control" placeholder="Filtrar por nome..." />
+            </div>
+            <div class="col-md-4">
+                <input id="filterCategory" type="text" class="form-control" placeholder="Filtrar por categoria..." />
+            </div>
+        </div>
+
+        <!-- Tabela -->
+        <table id="tblProducts" class="table table-bordered table-striped align-middle" style="width:100%">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center">Imagem</th>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">Categoria</th>
+                    <th class="text-center">Preço</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            <img src="@item.Product!.ImageUrl" alt="@item.Product!.Name" class="img-thumbnail" style="max-width: 80px;" />
+                        </td>
+                        <td>@item.Product!.Name</td>
+                        <td class="text-center">@item.CategoryName</td>
+                        <td class="text-center">@item.Product!.Price.ToString("c")</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.Product!.ProductId" class="btn btn-sm btn-warning me-1">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Product!.ProductId" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#tblProducts').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json"
+                },
+                paging: true,
+                searching: true
+            });
+
+            // Filtros customizados
+            $('#filterName').on('keyup', function () {
+                table.column(1).search(this.value).draw();
+            });
+
+            $('#filterCategory').on('keyup', function () {
+                table.column(2).search(this.value).draw();
+            });
+        });
+    </script>
+}
