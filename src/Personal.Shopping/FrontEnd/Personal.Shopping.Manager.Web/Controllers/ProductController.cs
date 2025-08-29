@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Personal.Shopping.Manager.Web.Models;
 using Personal.Shopping.Manager.Web.Models.Product;
 using Personal.Shopping.Manager.Web.Services.Interfaces;
+using System.Collections;
+using System.ComponentModel;
 
 namespace Personal.Shopping.Manager.Web.Controllers
 {
@@ -25,6 +28,8 @@ namespace Personal.Shopping.Manager.Web.Controllers
             List<ProductDto> list = new();
             List<ProductViewModel> listViewModel = new();
             CategoryDto categoryDto = new();
+            
+            var categories = LoadCategories().Result;
 
             ResponseDto? response = await _productService.GetAllProductsAsync();
 
@@ -40,7 +45,8 @@ namespace Personal.Shopping.Manager.Web.Controllers
                     ProductViewModel viewModel = new()
                     {
                         Product = productDto,
-                        CategoryName = categoryDto.CategoryName
+                        CategoryName = categoryDto.CategoryName,
+                        Categories = new SelectList(categories, "CategoryId", "Name")
                     };
                     listViewModel.Add(viewModel);
                 }
@@ -64,7 +70,15 @@ namespace Personal.Shopping.Manager.Web.Controllers
 
         public IActionResult ProductCreate()
         {
-            return View();
+            var categories = LoadCategories().Result;
+
+            var model = new ProductViewModel
+            {
+                Product = new ProductDto(),
+                Categories = new SelectList(categories, "CategoryId", "Name")
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -87,6 +101,8 @@ namespace Personal.Shopping.Manager.Web.Controllers
 
         public async Task<IActionResult> ProductEdit(int productId)
         {
+            var categories = LoadCategories().Result;
+
             ProductDto productDto = new();
 
             ResponseDto? response = await _productService.GetProductByIdAsync(productId);
@@ -94,51 +110,61 @@ namespace Personal.Shopping.Manager.Web.Controllers
             if (response is not null && response.IsSuccess)
             {
                 productDto = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result!)!)!;
-                return View(productDto);
+                
+                ProductViewModel viewModel = new()
+                {
+                    Product = productDto,
+                    Categories = new SelectList(categories, "CategoryId", "Name", productDto.CategoryNameId)
+                };
+                
+                return View(viewModel);
             }
 
             return NotFound();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> ProductEdit(ProductDto model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductEdit(ProductViewModel model)
         {
-            ResponseDto? response = await _productService.UpdateProductAsync(model);
-
-            if (response.IsSuccess)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("ProductIndex");
+                ResponseDto? response = await _productService.UpdateProductAsync(model.Product!);
+
+                if (response.IsSuccess)
+                {
+                    return RedirectToAction("ProductIndex");
+                }
             }
 
-            return View(model);
-        }
-
-        public async Task<IActionResult> ProductDelete(int productId)
-        {
-            ProductDto productDto = new();
-
-            ResponseDto? response = await _productService.GetProductByIdAsync(productId);
-
-            if (response is not null && response.IsSuccess)
-            {
-                productDto = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result!)!)!;
-                return View(productDto);
-            }
-
-            return NotFound();
+            return RedirectToAction(nameof(ProductIndex));
         }
 
         [HttpDelete]
-        public async Task<IActionResult> ProductDelete(ProductDto model)
+        public async Task<IActionResult> ProductDelete(int id)
         {
-            ResponseDto? response = await _productService.DeleteProductAsync(model.ProductId);
+            ResponseDto? response = await _productService.DeleteProductAsync(id);
 
             if (response.IsSuccess)
             {
-                return RedirectToAction("ProductIndex");
+                TempData["Message"] = "Produto excluído com sucesso!";
+                TempData["MessageType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = "Erro ao excluir produto!";
+                TempData["MessageType"] = "error";
             }
 
-            return View(model);
+                return RedirectToAction(nameof(ProductIndex));
+        }
+
+        private async Task<List<CategoryDto>> LoadCategories()
+        {
+            var categoriesResult = await _categoryService.GetAllCategoriesAsync();
+            var categories = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(categoriesResult.Result!)!)!;
+
+            return categories;
         }
     }
 }
