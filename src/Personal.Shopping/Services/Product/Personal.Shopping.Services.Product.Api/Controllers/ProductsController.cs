@@ -58,9 +58,9 @@ namespace Personal.Shopping.Services.Product.Api.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            var result = await _productService.DeleteProductAsync(id);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

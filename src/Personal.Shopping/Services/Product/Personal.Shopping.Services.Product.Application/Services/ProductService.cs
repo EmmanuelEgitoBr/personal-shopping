@@ -117,8 +117,23 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task DeleteProductAsync(int id)
+    public async Task<ResponseDto> DeleteProductAsync(int id)
     {
-        await _productRepository.DeleteProduct(id);
+        try
+        {
+            await _productRepository.DeleteProduct(id);
+
+            return new ResponseDto()
+            {
+                IsSuccess = true
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDto() {
+                IsSuccess = false,
+                Message = ex.Message
+            };
+        }
     }
 }

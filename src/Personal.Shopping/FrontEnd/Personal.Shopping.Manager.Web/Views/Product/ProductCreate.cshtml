@@ -1,12 +1,16 @@
 ﻿@model Personal.Shopping.Manager.Web.Models.Product.ProductViewModel
 
+@{
+    ViewData["Title"] = "Criar Produto";
+}
+
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-success text-white">
         <h3 class="mb-0">Criar Produto</h3>
     </div>
 
     <div class="card-body">
-        <form asp-action="Create" method="post">
+        <form asp-action="ProductCreate" method="post">
             <div class="mb-3">
                 <label asp-for="Product.Name" class="form-label">Nome</label>
                 <input asp-for="Product.Name" class="form-control" />
@@ -28,7 +32,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">Criar</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <a asp-action="ProductIndex" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </div>

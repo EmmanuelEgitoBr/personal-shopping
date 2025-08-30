@@ -5,8 +5,6 @@ using Newtonsoft.Json;
 using Personal.Shopping.Manager.Web.Models;
 using Personal.Shopping.Manager.Web.Models.Product;
 using Personal.Shopping.Manager.Web.Services.Interfaces;
-using System.Collections;
-using System.ComponentModel;
 
 namespace Personal.Shopping.Manager.Web.Controllers
 {
@@ -46,7 +44,7 @@ namespace Personal.Shopping.Manager.Web.Controllers
                     {
                         Product = productDto,
                         CategoryName = categoryDto.CategoryName,
-                        Categories = new SelectList(categories, "CategoryId", "Name")
+                        Categories = new SelectList(categories, "CategoryNameId", "CategoryName")
                     };
                     listViewModel.Add(viewModel);
                 }
@@ -55,38 +53,25 @@ namespace Personal.Shopping.Manager.Web.Controllers
             return View(listViewModel);
         }
 
-        public async Task<IActionResult> Details(int productId)
+        public async Task<IActionResult> ProductCreate()
         {
-            var productModel = new ProductViewModel();
-            ResponseDto? response = await _productService.GetProductByIdAsync(productId);
-
-            if (response is not null && response.IsSuccess)
-            {
-                var product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result!)!)!;
-                //productModel = ConvertToProductViewModel(product);
-            }
-            return View(productModel);
-        }
-
-        public IActionResult ProductCreate()
-        {
-            var categories = LoadCategories().Result;
+            var categories = await LoadCategories();
 
             var model = new ProductViewModel
             {
                 Product = new ProductDto(),
-                Categories = new SelectList(categories, "CategoryId", "Name")
+                Categories = new SelectList(categories, "CategoryNameId", "CategoryName")
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProductCreate(ProductDto model)
+        public async Task<IActionResult> ProductCreate(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ResponseDto response = await _productService.CreateProductAsync(model);
+                ResponseDto response = await _productService.CreateProductAsync(model.Product);
 
                 if (response is not null && response.IsSuccess)
                 {
@@ -99,13 +84,13 @@ namespace Personal.Shopping.Manager.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> ProductEdit(int productId)
+        public async Task<IActionResult> ProductEdit(int id)
         {
             var categories = LoadCategories().Result;
 
             ProductDto productDto = new();
 
-            ResponseDto? response = await _productService.GetProductByIdAsync(productId);
+            ResponseDto? response = await _productService.GetProductByIdAsync(id);
 
             if (response is not null && response.IsSuccess)
             {
@@ -114,7 +99,7 @@ namespace Personal.Shopping.Manager.Web.Controllers
                 ProductViewModel viewModel = new()
                 {
                     Product = productDto,
-                    Categories = new SelectList(categories, "CategoryId", "Name", productDto.CategoryNameId)
+                    Categories = new SelectList(categories, "CategoryNameId", "CategoryName", productDto.CategoryNameId)
                 };
                 
                 return View(viewModel);
@@ -127,20 +112,20 @@ namespace Personal.Shopping.Manager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProductEdit(ProductViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                ResponseDto? response = await _productService.UpdateProductAsync(model.Product!);
-
-                if (response.IsSuccess)
-                {
-                    return RedirectToAction("ProductIndex");
-                }
+                var categories = await LoadCategories();
+                model.Categories = new SelectList(categories, 
+                    "CategoryNameId", 
+                    "CategoryName", 
+                    model.Product.CategoryNameId);
+                return View(model);
             }
 
+            await _productService.UpdateProductAsync(model.Product);
             return RedirectToAction(nameof(ProductIndex));
         }
 
-        [HttpDelete]
         public async Task<IActionResult> ProductDelete(int id)
         {
             ResponseDto? response = await _productService.DeleteProductAsync(id);
@@ -156,7 +141,7 @@ namespace Personal.Shopping.Manager.Web.Controllers
                 TempData["MessageType"] = "error";
             }
 
-                return RedirectToAction(nameof(ProductIndex));
+            return RedirectToAction(nameof(ProductIndex));
         }
 
         private async Task<List<CategoryDto>> LoadCategories()
