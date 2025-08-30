@@ -1,0 +1,23 @@
+﻿@model Personal.Shopping.Manager.Web.Models.Product.CategoryDto
+
+@{
+    ViewData["Title"] = "Criar Categoria";
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-success text-white">
+        <h3 class="mb-0">Criar Categoria</h3>
+    </div>
+
+    <div class="card-body">
+        <form asp-action="CategoryCreate" method="post">
+            <div class="mb-3">
+                <label asp-for="CategoryName" class="form-label">Nome</label>
+                <input asp-for="CategoryName" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-success">Criar</button>
+            <a asp-action="CategoryIndex" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

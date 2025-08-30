@@ -3,6 +3,7 @@ using Personal.Shopping.Services.Product.Application.Dtos;
 using Personal.Shopping.Services.Product.Application.Interfaces;
 using Personal.Shopping.Services.Product.Domain.Entities;
 using Personal.Shopping.Services.Product.Domain.Interfaces;
+using Personal.Shopping.Services.Product.Infra.Repositories;
 
 namespace Personal.Shopping.Services.Product.Application.Services;
 
@@ -97,8 +98,24 @@ public class CategoryService : ICategoryService
         };
     }
 
-    public async Task DeleteCategoryAsync(int id)
+    public async Task<ResponseDto> DeleteCategoryAsync(int id)
     {
-        await _categoryRepository.DeleteCategory(id);
+        try
+        {
+            await _categoryRepository.DeleteCategory(id);
+
+            return new ResponseDto()
+            {
+                IsSuccess = true
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDto()
+            {
+                IsSuccess = false,
+                Message = ex.Message
+            };
+        }
     }
 }

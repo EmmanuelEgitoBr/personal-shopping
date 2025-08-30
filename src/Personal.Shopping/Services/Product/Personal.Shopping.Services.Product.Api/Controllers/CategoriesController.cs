@@ -50,8 +50,8 @@ public class CategoriesController : ControllerBase
     [HttpDelete("delete/{id}")]
     public async Task<ActionResult> DeleteCategory(int id)
     {
-        await _categoryService.DeleteCategoryAsync(id);
+        var result = await _categoryService.DeleteCategoryAsync(id);
 
-        return Ok();
+        return Ok(result);
     }
 }
