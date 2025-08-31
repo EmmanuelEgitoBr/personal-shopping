@@ -62,5 +62,15 @@ namespace Personal.Shopping.Services.Product.Api.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("{id}/upload-image")]
+        public async Task<ActionResult> UploadProductImage(int id, IFormFile file)
+        {
+            if (file == null || file.Length == 0) return BadRequest("Arquivo inválido");
+            
+            var result = await _productService.UploadProductImageAsync(id, file);
+
+            return Ok(result);
+        }
     }
 }

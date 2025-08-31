@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Personal.Shopping.Services.Product.Application.Dtos;
 using Personal.Shopping.Services.Product.Application.Interfaces;
 using Personal.Shopping.Services.Product.Domain.Interfaces;
@@ -9,11 +10,15 @@ namespace Personal.Shopping.Services.Product.Application.Services;
 public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
+    private readonly IAwsS3BucketService _awsS3BucketService;
     private IMapper _mapper;
 
-    public ProductService(IProductRepository productRepository, IMapper mapper)
+    public ProductService(IProductRepository productRepository, 
+        IAwsS3BucketService awsS3BucketService, 
+        IMapper mapper)
     {
         _productRepository = productRepository;
+        _awsS3BucketService = awsS3BucketService;
         _mapper = mapper;
     }
 
@@ -121,7 +126,15 @@ public class ProductService : IProductService
     {
         try
         {
+            var product = await _productRepository.GetProductsById(id);
+
             await _productRepository.DeleteProduct(id);
+
+            if (!string.IsNullOrEmpty(product.ImageUrl))
+            {
+                var oldFile = Path.GetFileName(new Uri(product.ImageUrl).LocalPath);
+                await _awsS3BucketService.DeleteFileAsync(oldFile);
+            }
 
             return new ResponseDto()
             {
@@ -131,6 +144,51 @@ public class ProductService : IProductService
         catch (Exception ex)
         {
             return new ResponseDto() {
+                IsSuccess = false,
+                Message = ex.Message
+            };
+        }
+    }
+
+    public async Task<ResponseDto> UploadProductImageAsync(int productId, IFormFile imageFile)
+    {
+        try
+        {
+            var product = await _productRepository.GetProductsById(productId);
+
+            if (product == null)
+            {
+                return new ResponseDto
+                {
+                    IsSuccess = false,
+                    Message = "Produto não encontrado"
+                };
+            }
+
+            if (!string.IsNullOrEmpty(product.ImageUrl))
+            {
+                var oldFile = Path.GetFileName(new Uri(product.ImageUrl).LocalPath);
+                await _awsS3BucketService.DeleteFileAsync(oldFile);
+            }
+
+            var fileName = $"products/{productId}_{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+
+            var url = await _awsS3BucketService.UploadFileAsync(imageFile, fileName);
+
+            product.ImageUrl = url;
+            await _productRepository.UpdateProduct(product);
+
+            return new ResponseDto
+            {
+                IsSuccess = true,
+                Result = url,
+                Message = "Arquivo salvo com êxito!"
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDto
+            {
                 IsSuccess = false,
                 Message = ex.Message
             };

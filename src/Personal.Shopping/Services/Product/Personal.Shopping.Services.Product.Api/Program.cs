@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddSqlConfiguration();
 builder.AddApplicationConfig();
 builder.AddMapperConfiguration();
+builder.AddAWSConfig();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
