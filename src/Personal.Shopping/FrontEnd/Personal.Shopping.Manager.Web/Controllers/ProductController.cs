@@ -5,20 +5,25 @@ using Newtonsoft.Json;
 using Personal.Shopping.Manager.Web.Models;
 using Personal.Shopping.Manager.Web.Models.Product;
 using Personal.Shopping.Manager.Web.Services.Interfaces;
+using Refit;
+using Autorizacao = Microsoft.AspNetCore.Authorization;
 
 namespace Personal.Shopping.Manager.Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Autorizacao.Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IProductApiClient _productService;
         private readonly ICategoryApiClient _categoryService;
+        private readonly ILogger<ProductController> _logger;
 
         public ProductController(IProductApiClient productService,
-            ICategoryApiClient categoryService)
+            ICategoryApiClient categoryService,
+            ILogger<ProductController> logger)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> ProductIndex()
@@ -69,15 +74,38 @@ namespace Personal.Shopping.Manager.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ProductCreate(ProductViewModel model)
         {
+            var categories = await LoadCategories();
+            model.Categories = new SelectList(categories,
+                "CategoryNameId",
+                "CategoryName",
+                model.Product.CategoryNameId);
+
+
             if (ModelState.IsValid)
             {
-                ResponseDto response = await _productService.CreateProductAsync(model.Product);
-
-                if (response is not null && response.IsSuccess)
+                try
                 {
-                    TempData["Message"] = "Produto criado com sucesso!";
-                    TempData["MessageType"] = "success";
-                    return RedirectToAction("ProductIndex");
+                    ResponseDto response = await _productService.CreateProductAsync(model.Product);
+
+                    if (response is not null && response.IsSuccess)
+                    {
+                        var productDto = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result!)!)!;
+                        model.Product = productDto;
+
+                        if (model.ImageFile != null && model.ImageFile.Length > 0)
+                            await UploadProductImage(model);
+
+                        TempData["Message"] = "Produto criado com sucesso!";
+                        TempData["MessageType"] = "success";
+
+                        return RedirectToAction("ProductIndex");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Erro durante processo: {ex.Message}");
+                    _logger.LogError($"Exceção interna: {ex.InnerException}");
+                    return View(model);
                 }
             }
 
@@ -150,6 +178,17 @@ namespace Personal.Shopping.Manager.Web.Controllers
             var categories = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(categoriesResult.Result!)!)!;
 
             return categories;
+        }
+
+        private async Task UploadProductImage(ProductViewModel model)
+        {
+            // abre o stream do arquivo vindo do form
+            using var fileStream = model.ImageFile!.OpenReadStream();
+
+            // cria o StreamPart que o Refit entende
+            var filePart = new StreamPart(fileStream, model.ImageFile.FileName, model.ImageFile.ContentType);
+
+            var result = await _productService.UploadProductImageAsync(model.Product.ProductId, filePart);
         }
     }
 }

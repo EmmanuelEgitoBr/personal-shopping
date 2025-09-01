@@ -40,7 +40,10 @@
                 {
                     <tr>
                         <td class="text-center">
-                            <img src="@item.Product!.ImageUrl" alt="@item.Product!.Name" class="img-thumbnail" style="max-width: 80px;" />
+                            @if (!string.IsNullOrEmpty(item.Product.ImageUrl))
+                            {
+                                <img src="@item.Product.ImageUrl" alt="Imagem" style="width:60px; height:60px; object-fit:cover;" />
+                            }
                         </td>
                         <td>@item.Product!.Name</td>
                         <td class="text-center">@item.CategoryName</td>

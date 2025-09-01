@@ -97,7 +97,7 @@ public class ProductService : IProductService
 
         return new ResponseDto
         {
-            Result = _mapper.Map<ProductDto>(product),
+            Result = _mapper.Map<ProductDto>(result),
             IsSuccess = true
         };
     }

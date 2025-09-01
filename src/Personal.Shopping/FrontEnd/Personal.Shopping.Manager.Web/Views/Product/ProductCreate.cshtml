@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form asp-action="ProductCreate" method="post">
+        <form asp-action="ProductCreate" method="post" enctype="multipart/form-data" >
             <div class="mb-3">
                 <label asp-for="Product.Name" class="form-label">Nome</label>
                 <input asp-for="Product.Name" class="form-control" />
@@ -27,8 +27,8 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Product.ImageUrl" class="form-label">URL da Imagem</label>
-                <input asp-for="Product.ImageUrl" class="form-control" />
+                <label class="form-label">Imagem do Produto</label>
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
             </div>
 
             <div class="mb-3">

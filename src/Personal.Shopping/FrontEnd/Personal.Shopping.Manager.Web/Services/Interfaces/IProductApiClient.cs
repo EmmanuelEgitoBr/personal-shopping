@@ -23,4 +23,8 @@ public interface IProductApiClient
 
     [Delete("/api/products/delete/{id}")]
     Task<ResponseDto> DeleteProductAsync(int id);
+
+    [Multipart]
+    [Post("/api/products/{id}/upload-image")]
+    Task<ResponseDto> UploadProductImageAsync(int id, [AliasAs("file")] StreamPart file);
 }

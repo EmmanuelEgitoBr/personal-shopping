@@ -32,8 +32,7 @@ public class AwsS3BucketService : IAwsS3BucketService
             BucketName = _bucketName,
             Key = fileName,
             InputStream = stream,
-            ContentType = file.ContentType,
-            CannedACL = S3CannedACL.PublicRead
+            ContentType = file.ContentType
         };
 
         await _s3Client.PutObjectAsync(putRequest);
