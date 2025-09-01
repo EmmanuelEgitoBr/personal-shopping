@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.OrderManager.Web", "FrontEnd\Personal.Shopping.OrderManager.Web\Personal.Shopping.OrderManager.Web.csproj", "{76DAB80B-716A-4FC3-B192-78D4C3FDF214}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Personal.Shopping.GatewaySolution", "Gateway\Personal.Shopping.GatewaySolution\Personal.Shopping.GatewaySolution.csproj", "{FFC1061E-B1BF-4C40-9023-D515D1CE70FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,6 +219,10 @@ Global
 		{76DAB80B-716A-4FC3-B192-78D4C3FDF214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76DAB80B-716A-4FC3-B192-78D4C3FDF214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76DAB80B-716A-4FC3-B192-78D4C3FDF214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC1061E-B1BF-4C40-9023-D515D1CE70FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC1061E-B1BF-4C40-9023-D515D1CE70FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC1061E-B1BF-4C40-9023-D515D1CE70FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC1061E-B1BF-4C40-9023-D515D1CE70FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -260,6 +266,7 @@ Global
 		{7EBB3FDC-C42B-4E53-899C-CBF666E065B0} = {FE74F7DA-02BD-4745-A298-83ACC3EC5033}
 		{AF5A46AF-7BCD-403C-BEB8-10BF22908D97} = {DAB753D2-1A79-46FE-9C10-BFF3D002FF03}
 		{76DAB80B-716A-4FC3-B192-78D4C3FDF214} = {FE74F7DA-02BD-4745-A298-83ACC3EC5033}
+		{FFC1061E-B1BF-4C40-9023-D515D1CE70FC} = {F41DD400-28F3-4EF9-87B0-881CBE537859}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97D5426D-3571-42A3-AB54-D00EFDE451D0}
