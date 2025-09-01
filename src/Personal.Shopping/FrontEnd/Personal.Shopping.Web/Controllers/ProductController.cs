@@ -92,7 +92,7 @@ namespace Personal.Shopping.Web.Controllers
 
         private ProductViewModel ConvertToProductViewModel(ProductDto dto)
         {
-            var response = _categoryService.GetCategoryByIdAsync(dto.ProductId).Result;
+            var response = _categoryService.GetCategoryByIdAsync(dto.CategoryNameId).Result;
             var categoryDto = JsonConvert.DeserializeObject<CategoryDto>(Convert.ToString(response.Result!)!)!;
             ProductViewModel model = new ProductViewModel
             {
