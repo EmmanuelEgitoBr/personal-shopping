@@ -25,8 +25,10 @@ public static class WebApiBuilderExtensions
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IOrderLogService,  OrderLogService>();
         builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
         builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        builder.Services.AddScoped<IOrderLogRepository, OrderLogRepository>();
         builder.Services.AddScoped(typeof(IKafkaProducerService<>), typeof(KafkaProducerService<>));
 
     }

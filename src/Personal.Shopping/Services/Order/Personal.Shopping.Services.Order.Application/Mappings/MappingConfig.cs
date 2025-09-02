@@ -40,6 +40,8 @@ public class MappingConfig
 
             // Se tiver Product/ProductDto
             config.CreateMap<Product, ProductDto>().ReverseMap();
+
+            config.CreateMap<OrderLog, OrderLogDto>().ReverseMap();
         }
         );
         return mapperConfiguration;

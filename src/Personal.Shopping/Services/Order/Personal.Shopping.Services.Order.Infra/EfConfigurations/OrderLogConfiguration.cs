@@ -18,6 +18,9 @@ public class OrderLogConfiguration : IEntityTypeConfiguration<OrderLog>
         builder.Property(o => o.LogDescription)
                .HasMaxLength(500);
 
+        builder.Property(o => o.UserId)
+               .IsRequired();
+
         builder.Property(o => o.OrderDate)
                .IsRequired();
     }
