@@ -46,5 +46,9 @@ public static class WebApplicationBuilderExtensions
         builder.Services
             .AddRefitClient<IOrderApiClient>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Order"]!));
+
+        builder.Services
+            .AddRefitClient<IOrderLogApiClient>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ApiUrls:Order"]!));
     }
 }

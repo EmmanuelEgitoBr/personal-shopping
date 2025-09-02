@@ -80,10 +80,5 @@ namespace Personal.Shopping.OrderManager.Web.Controllers
 
             return View();
         }
-
-        public IActionResult OrderLog()
-        {
-            return View();
-        }
     }
 }

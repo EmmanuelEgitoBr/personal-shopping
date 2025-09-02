@@ -44,7 +44,7 @@ namespace Personal.Shopping.OrderManager.Web.Controllers
                     await SignInUserAsync(responseDto);
                     _tokenProvider.SetToken(responseDto.Token!);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("OrderLogIndex", "OrderLog");
                 }
                 else
                 {
