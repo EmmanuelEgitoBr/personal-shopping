@@ -1,0 +1,70 @@
+﻿
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <h1 class="text-white">Lista de Pedidos</h1>
+        </div>
+    </div>
+    <div class="card-body py-4">
+        <table id="tblData" class="table table-bordered table-striped pt-3" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="text-center">N° pedido</th>
+                    <th class="text-center">E-mail</th>
+                    <th class="text-center">Nome</th>
+                    <th class="text-center">Telefone</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tblData').DataTable({
+                ajax: {
+                    url: "/Order/GetAllOrders",
+                    type: "GET",
+                    dataSrc: "data"
+                },
+                columns: [
+                    { data: "orderHeaderId", className: "text-center" },
+                    { data: "email", className: "text-center" },
+                    {
+                        data: null,
+                        className: "text-center",
+                        render: function (data) {
+                            return `${data.firstName || ''} ${data.lastName || ''}`;
+                        }
+                    },
+                    { data: "phone", className: "text-center" },
+                    { data: "status", className: "text-center" },
+                    {
+                        data: "orderTotal",
+                        className: "text-center",
+                        render: $.fn.dataTable.render.number('.', ',', 2, 'R$ ')
+                    },
+                    {
+                        data: "orderHeaderId",
+                        className: "text-center",
+                        render: function (data) {
+                            return `<div class="w-75 btn-group" role="group">
+                            <a href="/Order/OrderDetail?orderId=${data}" class="btn btn-primary mx-2" >
+                                <i class="bi bi-pencil-square" ></i>
+                            </a>
+                            </div>`;
+                        }
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json"
+                }
+            });
+        });
+    </script>
+}
