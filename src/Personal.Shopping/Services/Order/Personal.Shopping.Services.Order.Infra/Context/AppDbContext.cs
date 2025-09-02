@@ -11,4 +11,12 @@ public class AppDbContext : DbContext
 
     public DbSet<OrderDetail> OrderDetails { get; set; }
     public DbSet<OrderHeader> OrderHeaders { get; set; }
+    public DbSet<OrderLog> OrderLogs { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        base.OnModelCreating(modelBuilder);
+    }
 }

@@ -206,7 +206,8 @@ public class OrderService : IOrderService
                 {
                     OrderId = orderHeaderId,
                     RewardsActivity = Convert.ToInt32(orderHeader.OrderTotal),
-                    UserId = orderHeader.UserId
+                    UserId = orderHeader.UserId,
+                    Email = orderHeader.Email!
                 };
 
                 await _kafkaProducerService.PublishOrderAsync(rewardsDto);

@@ -15,7 +15,7 @@ public static class EmailBuilder
         {
             Subject = subject,
             Body = body,
-            To = "e_egito@hotmail.com",
+            To = rewards.Email,
             OrderId = rewards.OrderId.ToString(),
         };
 
